@@ -1,8 +1,30 @@
-﻿
+﻿@model PlanningSystem.ViewModels.NewAccountModel
+
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Account";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Edit @*@Model.Account.username*@</h2>
 
+@using (Html.BeginForm("EditAccount", "Account"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Account.username)
+        @Html.TextBoxFor(m => m.Account.username, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Account.password)
+        @Html.TextBoxFor(m => m.Account.password, new { @class = "form-control" })
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.Account.role)
+            @Html.DropDownList("DropdownlistName",
+                new SelectList(new List<SelectListItem> {
+                    new SelectListItem { Text = "Administrator", Value = "Administrator" },
+                    new SelectListItem { Text = "Roosteraar", Value = "Roosteraar" },
+                    new SelectListItem { Text = "Docent", Value = "Docent" }
+                }, "Value", "Text"), "Select gebruikers rol", new { @class = "form-control" })
+        </div>*@
+    <button type="submit" class="btn btn-primary">Opslaan</button>
+}

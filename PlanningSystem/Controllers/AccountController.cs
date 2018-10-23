@@ -45,9 +45,14 @@ namespace PlanningSystem.Controllers
         }
 
         // PUT: Account/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
+        }
+
+        public ActionResult EditAccount(Account account)
+        {
+            return RedirectToAction("Overview", "Account");
         }
 
         // DEL: Account/Delete/5
