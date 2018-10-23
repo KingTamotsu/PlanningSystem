@@ -1,0 +1,72 @@
+﻿@using PlanningSystem.Models
+
+@model PlanningSystem.Models.Account
+@{
+    ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h2 class="float-left">Accounts</h2>
+    </div>
+    <div class="col-md-6 text-center">
+        <span class="float-md-right">
+            <button type="button" class="btn btn-success">@Html.ActionLink("Toevoegen", "Create", "Account")</button>
+        </span>
+    </div>
+</div>
+
+
+@{
+    Account account = new Account
+    {
+        userId = 1,
+        username = "Shirley",
+        password = "Test1234",
+        //role = new Role() { roleId = 1, name = "Administrator" },
+        createdAt = DateTime.Now,
+        firstLogin = true
+    };
+
+    Account account2 = new Account
+    {
+        userId = 2,
+        username = "Alyssa",
+        password = "Test1234",
+        //role = new Role() { roleId = 3, name = "Docent" },
+        createdAt = DateTime.Now,
+        firstLogin = true
+    };
+
+    List<Account> allAccounts = new List<Account>();
+    allAccounts.Add(account);
+    allAccounts.Add(account2);
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">Gebruikersnaam</th>
+            @*<th scope="col">Rol</th>*@
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    @foreach (Account i in allAccounts)
+    {
+        <tbody>
+            <tr>
+                <td>@i.userId</td>
+                <td>@i.username</td>
+                @*<td>@i.role.name</td>*@
+
+                <td>
+                    <button type="button" class="btn btn-primary">Wijzigen</button>
+                    <button type="button" class="btn btn-danger">Verwijderen</button>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
