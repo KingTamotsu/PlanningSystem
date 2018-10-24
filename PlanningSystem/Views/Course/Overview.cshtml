@@ -1,0 +1,70 @@
+﻿@using PlanningSystem.Models
+@model PlanningSystem.Models.Course
+@{
+    ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h2 class="pull-left">Onderwijseenheid</h2>
+    </div>
+    <div class="col-md-6 text-center">
+        <span class="pull-right">
+            @Html.ActionLink("Toevoegen", "Create", "Account", new { @class = "btn btn-success" })
+        </span>
+    </div>
+</div>
+
+@{
+    Course course = new Course
+    {
+        courseId = 1,
+        courseCode = "A1A2",
+        courseName = "Inleiding ICT",
+        description = "Inleidend vak faculteit ICT"
+    };
+
+    Course course2 = new Course
+    {
+        courseId = 2,
+        courseCode = "A1A3",
+        courseName = "Scripting",
+        description = "Inleidend vak programmeren"
+    };
+
+    List<Course> lectures = new List<Course>();
+    lectures.Add(course);
+    lectures.Add(course2);
+}
+
+
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Cursus ID</th>
+        <th scope="col">Cursus code</th>
+        <th scope="col">Cursus naam</th>
+        @*<th scope="col">Rol</th>*@
+        <th scope="col">Beschrijving</th>
+
+    </tr>
+    </thead>
+    @foreach (Course i in lectures)
+    {
+        <tbody>
+        <tr>
+            <th>@i.courseId</th>
+            <th>@i.courseCode</th>
+            <td>@i.courseName</td>
+            <td>@i.description</td>
+
+            <td>
+                <button type="button" class="btn btn-primary">Wijzigen</button>
+                <button type="button" class="btn btn-danger">Verwijderen</button>
+            </td>
+        </tr>
+        </tbody>
+    }
+</table>
