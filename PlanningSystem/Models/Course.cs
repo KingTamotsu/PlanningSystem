@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -8,9 +9,13 @@ namespace PlanningSystem.Models
     public class Course
     {
         public int courseId;
-        public string courseCode;
-        public string courseName;
-        public string description;
-        public List<string> lectures;
+        [DisplayName("Cursus Code")]
+        public string courseCode { get; set; }
+        [DisplayName("Cursus naam")]
+        public string courseName { get; set; }
+        [DisplayName("Omschrijving")]
+        public string description { get; set; }
+        [DisplayName("Colleges")]
+        public List<string> lectures { get; set; }
     }
 }

@@ -18,5 +18,10 @@ namespace PlanningSystem.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateCourse()
+        {
+            return RedirectToAction("Overview", "Course");
+        }
     }
 }
