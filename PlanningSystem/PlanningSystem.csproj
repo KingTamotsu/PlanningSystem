@@ -201,6 +201,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Overview.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Account\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

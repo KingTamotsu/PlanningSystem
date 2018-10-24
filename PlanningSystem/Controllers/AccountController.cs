@@ -24,6 +24,11 @@ namespace PlanningSystem.Controllers
             return View();
         }
 
+        public ActionResult Reset()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         // POST: Account/Create
