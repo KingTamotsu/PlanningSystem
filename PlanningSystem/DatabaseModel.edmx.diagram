@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5de60940f7c24f80af2fde41c80466cd" Name="Diagram1">
-        <EntityTypeShape EntityType="PlanningSysteemModel.Account" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlanningSysteemModel.Course" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlanningSysteemModel.Role" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="PlanningSysteemModel.FK_User_Role" ManuallyRouted="false" />
+      <Diagram DiagramId="1ccb4a8d68f3496ebc046e9f438420b3" Name="Diagram1">
+        <EntityTypeShape EntityType="PlanningSysteemModel.Account" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.Course" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.Role" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="PlanningSysteemModel.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
