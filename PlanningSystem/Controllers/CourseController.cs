@@ -11,7 +11,22 @@ namespace PlanningSystem.Controllers
         // GET: Course
         public ActionResult Overview()
         {
-            return View();
+            var context = new PlanningSysteemEntities();
+            List<Models.Course> allCourses = new List<Models.Course>();
+            var courses = context.Course.ToList();
+
+            foreach (Course i in courses)
+            {
+                Models.Course course = new Models.Course()
+                {
+                    courseId = i.courseId,
+                    courseCode = i.courseCode,
+                    courseName = i.courseName,
+                    description = i.description,
+                };
+                allCourses.Add(course);
+            }
+            return View(allCourses);
         }
 
         public ActionResult Create()
