@@ -11,7 +11,26 @@ namespace PlanningSystem.Controllers
         // GET: Account
         public ActionResult Overview()
         {
-            return View();
+            var context = new PlanningSysteemEntities();
+            List<Models.Account> allAccounts = new List<Models.Account>();
+            var accounts = context.Account.ToList();
+
+            foreach (Account i in accounts) {
+                Models.Role roleDB = new Models.Role()
+                {
+                    roleId = i.Role.roleId,
+                    roleName = i.Role.roleName
+                };
+                Models.Account account = new Models.Account() {
+                    userId = i.userId,
+                    username = i.username,
+                    role = roleDB,
+                    createdAt = i.createdAt,
+                    firstLogin = i.firstLogin
+                };
+                allAccounts.Add(account);
+            }
+            return View(allAccounts);
         }
 
         // GET: Account/Details/5
@@ -22,9 +41,9 @@ namespace PlanningSystem.Controllers
 
         public ActionResult Create()
         {
-            var context = new PlanningSysteemEntities();
+            //var context = new PlanningSysteemEntities();
 
-            var roles = context.Role.ToList();
+            //var roles = context.Role.ToList();
 
             return View(/*roles*/);
         }

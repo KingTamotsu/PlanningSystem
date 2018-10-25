@@ -1,6 +1,6 @@
 ﻿@using PlanningSystem.Models
 
-@model PlanningSystem.Models.Account
+@model List<PlanningSystem.Models.Account>
 @{
     ViewBag.Title = "Overview";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +18,7 @@
 </div>
 
 
-@{
+@*@{
     Account account = new Account
     {
         userId = 1,
@@ -42,7 +42,7 @@
     List<Account> allAccounts = new List<Account>();
     allAccounts.Add(account);
     allAccounts.Add(account2);
-}
+}*@
 
 <table class="table table-hover">
     <thead>
@@ -54,7 +54,7 @@
 
         </tr>
     </thead>
-    @foreach (Account i in allAccounts)
+    @foreach (var i in Model)
     {
         <tbody>
             <tr>

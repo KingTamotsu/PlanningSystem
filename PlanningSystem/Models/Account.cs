@@ -17,7 +17,7 @@ namespace PlanningSystem.Models
         public DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
 
-        //public List<Account> allAccounts { get; set; }
+        public List<Account> allAccounts { get; set; }
 
     }
 }
