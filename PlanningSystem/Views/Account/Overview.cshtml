@@ -17,39 +17,12 @@
     </div>
 </div>
 
-
-@*@{
-    Account account = new Account
-    {
-        userId = 1,
-        username = "Shirley",
-        password = "Test1234",
-        //role = new Role() { roleId = 1, name = "Administrator" },
-        createdAt = DateTime.Now,
-        firstLogin = true
-    };
-
-    Account account2 = new Account
-    {
-        userId = 2,
-        username = "Alyssa",
-        password = "Test1234",
-        //role = new Role() { roleId = 3, name = "Docent" },
-        createdAt = DateTime.Now,
-        firstLogin = true
-    };
-
-    List<Account> allAccounts = new List<Account>();
-    allAccounts.Add(account);
-    allAccounts.Add(account2);
-}*@
-
 <table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">User ID</th>
             <th scope="col">Gebruikersnaam</th>
-            @*<th scope="col">Rol</th>*@
+            <th scope="col">Rol</th>
             <th scope="col">Manage</th>
 
         </tr>
@@ -60,7 +33,7 @@
             <tr>
                 <th>@i.userId</th>
                 <td>@i.username</td>
-                @*<td>@i.role.name</td>*@
+                <td>@i.role.roleName</td>
 
                 <td>
                     <button type="button" class="btn btn-primary">Wijzigen</button>

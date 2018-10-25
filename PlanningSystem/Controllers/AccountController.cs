@@ -11,12 +11,12 @@ namespace PlanningSystem.Controllers
         // GET: Account
         public ActionResult Overview()
         {
-            var context = new PlanningSysteemEntities();
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<Models.Account> allAccounts = new List<Models.Account>();
-            var accounts = context.Account.ToList();
+            List<Account> accounts = context.Account.ToList();
 
             foreach (Account i in accounts) {
-                Models.Role roleDB = new Models.Role()
+                Models.Role roleinDB = new Models.Role()
                 {
                     roleId = i.Role.roleId,
                     roleName = i.Role.roleName
@@ -24,7 +24,7 @@ namespace PlanningSystem.Controllers
                 Models.Account account = new Models.Account() {
                     userId = i.userId,
                     username = i.username,
-                    role = roleDB,
+                    role = roleinDB,
                     createdAt = i.createdAt,
                     firstLogin = i.firstLogin
                 };
