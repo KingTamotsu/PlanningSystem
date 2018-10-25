@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Microsoft.ApplicationInsights;
 using PlanningSystem.Models;
@@ -21,7 +22,11 @@ namespace PlanningSystem.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var context = new PlanningSysteemEntities();
+
+            var roles = context.Role.ToList();
+
+            return View(/*roles*/);
         }
 
         public ActionResult Reset()
@@ -34,18 +39,18 @@ namespace PlanningSystem.Controllers
         // POST: Account/Create
         public ActionResult CreateAccount(Account account)
         {
-            //var context = new PlanningSystemEntities();
-            //var user = new User
-            //{
-            //    userId = account.userId,
-            //    username = account.username,
-            //    password = account.password,
-            //    firstLogin = account.firstLogin,
-            //    createdAt = account.createdAt,
-            //    //role = account.role.name
-            //};
-            //context.User.Add(user);
-            //context.SaveChanges();
+            var context = new PlanningSysteemEntities();
+            var nieuwAccount = new Account
+            {
+                userId = account.userId,
+                username = account.username,
+                password = account.password,
+                roleId = account.roleId,
+                firstLogin = account.firstLogin,
+                createdAt = account.createdAt,
+            };
+            context.Account.Add(nieuwAccount);
+            context.SaveChanges();
             return RedirectToAction("Overview", "Account");
         }
 

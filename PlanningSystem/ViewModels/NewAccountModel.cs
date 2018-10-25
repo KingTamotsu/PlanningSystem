@@ -8,7 +8,7 @@ namespace PlanningSystem.ViewModels
 {
     public class NewAccountModel
     {
-        public IEnumerable<Role> Roles { get; set; }
+        public Role Role { get; set; }
         public Account Account { get; set; }
 
     }

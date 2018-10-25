@@ -11,8 +11,8 @@ namespace PlanningSystem.Models
         public string username { get; set; }
         [DisplayName("Wachtwoord")]
         public string password { get; set; }
-        //[DisplayName("Rol")]
-        //public Role role { get; set; }
+        [DisplayName("Rol")]
+        public Role role { get; set; }
         [DisplayName("Gecreert op")]
         public DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
