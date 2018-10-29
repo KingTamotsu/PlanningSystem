@@ -90,6 +90,14 @@ namespace PlanningSystem.Controllers
             return View("Overview");
         }
 
+        [HttpPut]
+        // POST: Account/Reset
+        public ActionResult ResetAccount()
+        {
+            
+            return RedirectToAction("Overview", "Account");
+        }
+
 
         //// POST: Account/Create
         //[HttpPost]

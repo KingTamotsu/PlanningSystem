@@ -1,4 +1,4 @@
-﻿
+﻿@model PlanningSystem.Models.Account
 @{
     ViewBag.Title = "Reset";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,12 @@
 
 <h2>Reset</h2>
 
+@using (Html.BeginForm("ResetAccount", "Account"))
+{
+    <p>Wachtwoord kwijt? Vul hieronder je gebruikersnaam in en klik op 'Reset'.</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.username)
+        @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Reset</button>
+}
