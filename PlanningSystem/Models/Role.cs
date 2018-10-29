@@ -9,6 +9,6 @@ namespace PlanningSystem.Models
     {
         public int roleId { get; set; }
         public string roleName { get; set; }
-        public List<string> allRoles { get; set; }
+        public List<Role> allRoles { get; set; }
     }
 }

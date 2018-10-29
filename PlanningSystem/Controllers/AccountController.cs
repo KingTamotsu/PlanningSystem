@@ -41,11 +41,11 @@ namespace PlanningSystem.Controllers
 
         public ActionResult Create()
         {
-            //var context = new PlanningSysteemEntities();
+            var context = new PlanningSysteemEntities();
 
-            //var roles = context.Role.ToList();
+            List<Role> roles = context.Role.ToList();
 
-            return View(/*roles*/);
+            return View(roles);
         }
 
         public ActionResult Reset()
@@ -89,23 +89,6 @@ namespace PlanningSystem.Controllers
         {
             return View("Overview");
         }
-
-
-        //// POST: Account/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
 
         //// POST: Account/Edit/5
