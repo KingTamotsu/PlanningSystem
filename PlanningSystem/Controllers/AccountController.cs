@@ -90,11 +90,22 @@ namespace PlanningSystem.Controllers
             return View("Overview");
         }
 
-        [HttpPut]
+        [HttpPost]
         // POST: Account/Reset
-        public ActionResult ResetAccount()
+        public ActionResult ResetAccount(Account account)
         {
-            
+            //string resultaat;
+            var context = new PlanningSysteemEntities();
+            if (context.Account.Any(a => a.username == account.username))
+            {
+                //resultaat = "Waar";
+            }
+            else
+            {
+                //resultaat = "Onwaar";
+            }
+
+
             return RedirectToAction("Overview", "Account");
         }
 
