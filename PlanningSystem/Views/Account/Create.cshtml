@@ -20,7 +20,8 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.role.roleName)
-        @Html.DropDownListFor(m => m.role.allRoles)
+        
+        @Html.DropDownList("SelectedItem", (IEnumerable<SelectListItem>)ViewData["ListItems"])
         @*@Html.DropDownList("DropdownlistName",
         new SelectList(new List<SelectListItem> {
             new SelectListItem { Text = "Administrator", Value = "Administrator" },

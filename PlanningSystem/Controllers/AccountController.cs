@@ -44,9 +44,17 @@ namespace PlanningSystem.Controllers
             var context = new PlanningSysteemEntities();
 
             List<Role> roles = context.Role.ToList();
-            
-
-            return View(roles);
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var role in roles)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = role.roleName,
+                    Value = role.roleId.ToString()
+                });
+            }
+            ViewData["ListItems"] = items;
+            return View();
         }
 
         public ActionResult Reset()
