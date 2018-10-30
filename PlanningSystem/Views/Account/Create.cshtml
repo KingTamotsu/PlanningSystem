@@ -22,12 +22,6 @@
         @Html.LabelFor(m => m.role.roleName)
         
         @Html.DropDownList("SelectedItem", (IEnumerable<SelectListItem>)ViewData["ListItems"])
-        @*@Html.DropDownList("DropdownlistName",
-        new SelectList(new List<SelectListItem> {
-            new SelectListItem { Text = "Administrator", Value = "Administrator" },
-            new SelectListItem { Text = "Roosteraar", Value = "Roosteraar" },
-            new SelectListItem { Text = "Docent", Value = "Docent" }
-        }, "Value", "Text"), "Select gebruikers rol", new { @class = "form-control" })*@
     </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }
