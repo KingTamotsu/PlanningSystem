@@ -93,21 +93,33 @@ namespace PlanningSystem.Controllers
 
         [HttpPost]
         // POST: Account/Reset
-        public ActionResult ResetAccount(Account account)
+        public ActionResult ResetAccount(Account currentAccount)
         {
-            //string resultaat;
+            string newPassword = "testrggr";
+            
             var context = new PlanningSysteemEntities();
-            if (context.Account.Any(a => a.username == account.username))
+            if (context.Account.Any(a => a.username == currentAccount.username))
             {
-                //resultaat = "Waar";
+                using (var dbContext = new PlanningSysteemEntities())
+                {
+                    Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
+                    accountCurrent.password = newPassword;
+                    context.SaveChanges();
+                }
             }
             else
             {
-                //resultaat = "Onwaar";
+                return RedirectToAction("Reset", "Account");
             }
 
+            return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
+        }
 
-            return RedirectToAction("Overview", "Account");
+        public ActionResult resettedpassword(string password)
+        {
+            Models.Account account = new Models.Account();
+            ViewData["password"] = password;
+            return View(account);
         }
     }
 }

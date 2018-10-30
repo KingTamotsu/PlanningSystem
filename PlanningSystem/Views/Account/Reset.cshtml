@@ -1,5 +1,8 @@
 ﻿@model PlanningSystem.Models.Account
+
 @{
+    /**/
+
     ViewBag.Title = "Reset";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,4 +17,6 @@
         @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
     </div>
     <button type="submit" class="btn btn-primary">Reset</button>
+
+
 }
