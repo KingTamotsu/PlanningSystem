@@ -44,6 +44,7 @@ namespace PlanningSystem.Controllers
             var context = new PlanningSysteemEntities();
 
             List<Role> roles = context.Role.ToList();
+            
 
             return View(roles);
         }
@@ -108,39 +109,5 @@ namespace PlanningSystem.Controllers
 
             return RedirectToAction("Overview", "Account");
         }
-
-
-        //// POST: Account/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-
-        //// POST: Account/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

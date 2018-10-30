@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PlanningSystem.Models
 {
@@ -9,6 +10,6 @@ namespace PlanningSystem.Models
     {
         public int roleId { get; set; }
         public string roleName { get; set; }
-        public List<Role> allRoles { get; set; }
+        public IEnumerable<SelectListItem> allRoles { get; set; }
     }
 }
