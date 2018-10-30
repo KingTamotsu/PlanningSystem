@@ -60,7 +60,7 @@ namespace PlanningSystem.Controllers
         public ActionResult CreateAccount(Account account)
         {
             var context = new PlanningSysteemEntities();
-            var nieuwAccount = new Account
+            var newAccount = new Account
             {
                 userId = account.userId,
                 username = account.username,
@@ -69,7 +69,7 @@ namespace PlanningSystem.Controllers
                 firstLogin = account.firstLogin,
                 createdAt = account.createdAt,
             };
-            context.Account.Add(nieuwAccount);
+            context.Account.Add(newAccount);
             context.SaveChanges();
             return RedirectToAction("Overview", "Account");
         }
