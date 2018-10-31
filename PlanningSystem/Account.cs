@@ -20,6 +20,7 @@ namespace PlanningSystem
         public int roleId { get; set; }
         public System.DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
+        public bool isResetted { get; set; }
     
         public virtual Role Role { get; set; }
         public bool isResetted { get; internal set; }
