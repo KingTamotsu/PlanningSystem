@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.ApplicationInsights;
-using PlanningSystem.Models;
 
 namespace PlanningSystem.Controllers
 {
@@ -103,21 +101,31 @@ namespace PlanningSystem.Controllers
         // POST: Account/Reset
         public ActionResult ResetAccount(Account currentAccount)
         {
-            string newPassword = "testrggr";
-            
+            string newPassword; // = "testrggr";
+
             var context = new PlanningSysteemEntities();
             if (context.Account.Any(a => a.username == currentAccount.username))
             {
-                using (var dbContext = new PlanningSysteemEntities())
+                const string Chars = "ABCDEFGHIJKLMNPOQRSTUVWXYZ0123456789";
+                var random = new System.Random();
+                var result = new string(
+                    Enumerable.Repeat(Chars, 8)
+                        .Select(s => s[random.Next(s.Length)])
+                        .ToArray());
+                newPassword = result;
+
+                using (context)
                 {
                     Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
-                    accountCurrent.password = newPassword;
+                    accountCurrent.password = result;
                     context.SaveChanges();
                 }
             }
             else
             {
-                return RedirectToAction("Reset", "Account");
+                newPassword = "Deze gebruiker bestaat niet";
+                //return RedirectToAction("Reset", "Account");
+                
             }
 
             return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
