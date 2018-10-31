@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.ApplicationInsights;
-using PlanningSystem.Models;
 
 namespace PlanningSystem.Controllers
 {
@@ -108,7 +106,7 @@ namespace PlanningSystem.Controllers
             var context = new PlanningSysteemEntities();
             if (context.Account.Any(a => a.username == currentAccount.username))
             {
-                using (var dbContext = new PlanningSysteemEntities())
+                using (context)
                 {
                     Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
                     accountCurrent.password = newPassword;
