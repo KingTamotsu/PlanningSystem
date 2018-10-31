@@ -63,7 +63,7 @@ namespace PlanningSystem.Controllers
 
         [HttpPost]
         // POST: Account/Create
-        public ActionResult CreateAccount(Account account)
+        public ActionResult CreateAccount(Models.Account account)
         {
             var context = new PlanningSysteemEntities();
             var newAccount = new Account
@@ -71,8 +71,9 @@ namespace PlanningSystem.Controllers
                 userId = account.userId,
                 username = account.username,
                 password = account.password,
-                roleId = account.roleId,
-                firstLogin = account.firstLogin,
+                roleId = account.role.roleId,
+                firstLogin = account.firstLogin = true,
+                isResetted = account.isResetted = false,
                 createdAt = account.createdAt,
             };
             context.Account.Add(newAccount);
@@ -101,21 +102,32 @@ namespace PlanningSystem.Controllers
         // POST: Account/Reset
         public ActionResult ResetAccount(Account currentAccount)
         {
-            string newPassword = "testrggr";
-            
+            string newPassword; // = "testrggr";
+
             var context = new PlanningSysteemEntities();
             if (context.Account.Any(a => a.username == currentAccount.username))
             {
+                const string Chars = "ABCDEFGHIJKLMNPOQRSTUVWXYZ0123456789";
+                var random = new System.Random();
+                var result = new string(
+                    Enumerable.Repeat(Chars, 8)
+                        .Select(s => s[random.Next(s.Length)])
+                        .ToArray());
+                newPassword = result;
+
                 using (context)
                 {
                     Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
-                    accountCurrent.password = newPassword;
+                    accountCurrent.password = result;
+                    accountCurrent.isResetted = true;
                     context.SaveChanges();
                 }
             }
             else
             {
-                return RedirectToAction("Reset", "Account");
+                newPassword = "Deze gebruiker bestaat niet";
+                //return RedirectToAction("Reset", "Account");
+                
             }
 
             return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
