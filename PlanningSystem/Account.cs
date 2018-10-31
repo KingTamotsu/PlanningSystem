@@ -14,6 +14,12 @@ namespace PlanningSystem
     
     public partial class Account
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Account()
+        {
+            this.Unavailability = new HashSet<Unavailability>();
+        }
+    
         public int userId { get; set; }
         public string username { get; set; }
         public string password { get; set; }
@@ -22,6 +28,8 @@ namespace PlanningSystem
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Unavailability> Unavailability { get; set; }
         public virtual Role Role { get; set; }
     }
 }

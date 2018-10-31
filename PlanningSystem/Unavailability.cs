@@ -19,5 +19,7 @@ namespace PlanningSystem
         public System.DateTime UnavailabilityEndTime { get; set; }
         public string UnavailabilityCause { get; set; }
         public int userID { get; set; }
+    
+        public virtual Account Account { get; set; }
     }
 }

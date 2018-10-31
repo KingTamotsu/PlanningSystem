@@ -44,6 +44,18 @@
           <Property Name="UnavailabilityCause" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Unavailability_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Unavailability" Type="Self.Unavailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Unavailability">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Account" Type="Self.Account" Multiplicity="*" />
@@ -61,6 +73,10 @@
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unavailability" EntityType="Self.Unavailability" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Unavailability_Account" Association="Self.FK_Unavailability_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Unavailability" EntitySet="Unavailability" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -75,6 +91,10 @@
           <EntitySet Name="Course" EntityType="PlanningSysteemModel.Course" />
           <EntitySet Name="Role" EntityType="PlanningSysteemModel.Role" />
           <EntitySet Name="Unavailability" EntityType="PlanningSysteemModel.Unavailability" />
+          <AssociationSet Name="FK_Unavailability_Account" Association="PlanningSysteemModel.FK_Unavailability_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Unavailability" EntitySet="Unavailability" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="PlanningSysteemModel.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -91,6 +111,7 @@
           <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="firstLogin" Type="Boolean" Nullable="false" />
           <Property Name="isResetted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Unavailability" Relationship="PlanningSysteemModel.FK_Unavailability_Account" FromRole="Account" ToRole="Unavailability" />
           <NavigationProperty Name="Role" Relationship="PlanningSysteemModel.FK_User_Role" FromRole="Account" ToRole="Role" />
         </EntityType>
         <EntityType Name="Course">
@@ -120,7 +141,20 @@
           <Property Name="UnavailabilityEndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UnavailabilityCause" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Unavailability_Account" FromRole="Unavailability" ToRole="Account" />
         </EntityType>
+        <Association Name="FK_Unavailability_Account">
+          <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Unavailability" Role="Unavailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Unavailability">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Type="PlanningSysteemModel.Role" Role="Role" Multiplicity="1" />
           <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="*" />
