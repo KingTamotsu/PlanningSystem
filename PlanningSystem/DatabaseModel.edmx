@@ -13,7 +13,7 @@
           <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="roleId" Type="int" Nullable="false" />
-          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="createdAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="firstLogin" Type="bit" Nullable="false" />
           <Property Name="isResetted" Type="bit" Nullable="false" />
         </EntityType>
@@ -25,6 +25,7 @@
           <Property Name="courseCode" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="courseName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="disable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -32,6 +33,16 @@
           </Key>
           <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="roleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unavailability">
+          <Key>
+            <PropertyRef Name="UnavailabilityID" />
+          </Key>
+          <Property Name="UnavailabilityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnavailabilityStartTime" Type="datetime" Nullable="false" />
+          <Property Name="UnavailabilityEndTime" Type="datetime" Nullable="false" />
+          <Property Name="UnavailabilityCause" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
@@ -49,6 +60,7 @@
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unavailability" EntityType="Self.Unavailability" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -62,6 +74,7 @@
           <EntitySet Name="Account" EntityType="PlanningSysteemModel.Account" />
           <EntitySet Name="Course" EntityType="PlanningSysteemModel.Course" />
           <EntitySet Name="Role" EntityType="PlanningSysteemModel.Role" />
+          <EntitySet Name="Unavailability" EntityType="PlanningSysteemModel.Unavailability" />
           <AssociationSet Name="FK_User_Role" Association="PlanningSysteemModel.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -75,7 +88,7 @@
           <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="roleId" Type="Int32" Nullable="false" />
-          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="firstLogin" Type="Boolean" Nullable="false" />
           <Property Name="isResetted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="PlanningSysteemModel.FK_User_Role" FromRole="Account" ToRole="Role" />
@@ -88,6 +101,7 @@
           <Property Name="courseCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="courseName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="disable" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -96,6 +110,16 @@
           <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="roleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_User_Role" FromRole="Role" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Unavailability">
+          <Key>
+            <PropertyRef Name="UnavailabilityID" />
+          </Key>
+          <Property Name="UnavailabilityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnavailabilityStartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UnavailabilityEndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UnavailabilityCause" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_User_Role">
           <End Type="PlanningSysteemModel.Role" Role="Role" Multiplicity="1" />
@@ -131,6 +155,7 @@
           <EntitySetMapping Name="Course">
             <EntityTypeMapping TypeName="PlanningSysteemModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="disable" ColumnName="disable" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="courseName" ColumnName="courseName" />
                 <ScalarProperty Name="courseCode" ColumnName="courseCode" />
@@ -143,6 +168,17 @@
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="roleName" ColumnName="roleName" />
                 <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unavailability">
+            <EntityTypeMapping TypeName="PlanningSysteemModel.Unavailability">
+              <MappingFragment StoreEntitySet="Unavailability">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="UnavailabilityCause" ColumnName="UnavailabilityCause" />
+                <ScalarProperty Name="UnavailabilityEndTime" ColumnName="UnavailabilityEndTime" />
+                <ScalarProperty Name="UnavailabilityStartTime" ColumnName="UnavailabilityStartTime" />
+                <ScalarProperty Name="UnavailabilityID" ColumnName="UnavailabilityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

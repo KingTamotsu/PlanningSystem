@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="PlanningSysteemModel.Account" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Course" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Role" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.Unavailability" Width="1.5" PointX="2.75" PointY="4.75" />
         <AssociationConnector Association="PlanningSysteemModel.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>

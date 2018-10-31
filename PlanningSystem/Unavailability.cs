@@ -12,12 +12,12 @@ namespace PlanningSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class Unavailability
     {
-        public int courseId { get; set; }
-        public string courseCode { get; set; }
-        public string courseName { get; set; }
-        public string description { get; set; }
-        public bool disable { get; set; }
+        public int UnavailabilityID { get; set; }
+        public System.DateTime UnavailabilityStartTime { get; set; }
+        public System.DateTime UnavailabilityEndTime { get; set; }
+        public string UnavailabilityCause { get; set; }
+        public int userID { get; set; }
     }
 }
