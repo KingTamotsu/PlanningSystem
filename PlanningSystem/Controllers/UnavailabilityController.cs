@@ -22,10 +22,18 @@ namespace PlanningSystem.Controllers
             newUnavailability.UnavailabilityCause = reden;
             newUnavailability.UnavailabilityStartTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt16(startTijdUur), Convert.ToInt16(startTijdMinuten), 0);
             newUnavailability.UnavailabilityEndTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt16(eindTijdUur), Convert.ToInt16(eindTijdMinuten), 0);
-            newUnavailability.userID = 1;
+            newUnavailability.userID = 3;
             context.Unavailability.Add(newUnavailability);
             context.SaveChanges();
-            return View(newUnavailability);
+
+            var addedUnavailability = new Models.Unavailability
+            {
+                UnavailabilityStartTime = newUnavailability.UnavailabilityStartTime,
+                UnavailabilityEndTime = newUnavailability.UnavailabilityEndTime,
+                UnavailabilityCause = newUnavailability.UnavailabilityCause
+            };
+
+            return View(addedUnavailability);
         }
     }
 }
