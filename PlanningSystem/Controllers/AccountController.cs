@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -71,10 +72,10 @@ namespace PlanningSystem.Controllers
                 userId = account.userId,
                 username = account.username,
                 password = account.password,
-                roleId = account.role.roleId,
+                roleId = Int32.Parse(Request.Form["Role"]),
                 firstLogin = account.firstLogin = true,
                 isResetted = account.isResetted = false,
-                createdAt = account.createdAt,
+                createdAt = account.createdAt = DateTime.Now,
             };
             context.Account.Add(newAccount);
             context.SaveChanges();

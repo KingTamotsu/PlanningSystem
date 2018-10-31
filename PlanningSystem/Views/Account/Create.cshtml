@@ -21,7 +21,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.role.roleName)
         
-        @Html.DropDownList("SelectedItem", (IEnumerable<SelectListItem>)ViewData["ListItems"])
+        @Html.DropDownList("Role", (IEnumerable<SelectListItem>)ViewData["ListItems"])
     </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }
