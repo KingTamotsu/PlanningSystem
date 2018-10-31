@@ -63,7 +63,7 @@ namespace PlanningSystem.Controllers
 
         [HttpPost]
         // POST: Account/Create
-        public ActionResult CreateAccount(Account account)
+        public ActionResult CreateAccount(Models.Account account)
         {
             var context = new PlanningSysteemEntities();
             var newAccount = new Account
@@ -71,8 +71,9 @@ namespace PlanningSystem.Controllers
                 userId = account.userId,
                 username = account.username,
                 password = account.password,
-                roleId = account.roleId,
-                firstLogin = account.firstLogin,
+                roleId = account.role.roleId,
+                firstLogin = account.firstLogin = true,
+                isResetted = account.isResetted = false,
                 createdAt = account.createdAt,
             };
             context.Account.Add(newAccount);
