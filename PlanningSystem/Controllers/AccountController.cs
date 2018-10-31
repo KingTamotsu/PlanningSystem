@@ -101,15 +101,23 @@ namespace PlanningSystem.Controllers
         // POST: Account/Reset
         public ActionResult ResetAccount(Account currentAccount)
         {
-            string newPassword = "testrggr";
-            
+            string newPassword; // = "testrggr";
+
             var context = new PlanningSysteemEntities();
             if (context.Account.Any(a => a.username == currentAccount.username))
             {
+                const string Chars = "ABCDEFGHIJKLMNPOQRSTUVWXYZ0123456789";
+                var random = new System.Random();
+                var result = new string(
+                    Enumerable.Repeat(Chars, 8)
+                        .Select(s => s[random.Next(s.Length)])
+                        .ToArray());
+                newPassword = result;
+
                 using (context)
                 {
                     Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
-                    accountCurrent.password = newPassword;
+                    accountCurrent.password = result;
                     context.SaveChanges();
                 }
             }
