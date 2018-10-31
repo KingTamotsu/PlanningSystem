@@ -22,5 +22,6 @@ namespace PlanningSystem
         public bool firstLogin { get; set; }
     
         public virtual Role Role { get; set; }
+        public bool isResetted { get; internal set; }
     }
 }

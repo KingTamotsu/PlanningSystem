@@ -15,7 +15,7 @@ namespace PlanningSystem.Models
         [DisplayName("Gecreert op")]
         public DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
-        public bool isResetted { get; set; }
+        public bool isResetted { get; internal set; }
         public List<Account> allAccounts { get; set; }
 
     }

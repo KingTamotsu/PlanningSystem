@@ -118,6 +118,7 @@ namespace PlanningSystem.Controllers
                 {
                     Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
                     accountCurrent.password = result;
+                    accountCurrent.isResetted = true;
                     context.SaveChanges();
                 }
             }
