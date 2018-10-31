@@ -28,5 +28,6 @@ namespace PlanningSystem
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Course> Course { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Unavailability> Unavailability { get; set; }
     }
 }
