@@ -23,6 +23,5 @@ namespace PlanningSystem
         public bool isResetted { get; set; }
     
         public virtual Role Role { get; set; }
-        public bool isResetted { get; internal set; }
     }
 }
