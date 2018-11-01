@@ -24,16 +24,29 @@ namespace PlanningSystem.Controllers
             newUnavailability.UnavailabilityEndTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt16(eindTijdUur), Convert.ToInt16(eindTijdMinuten), 0);
             newUnavailability.userID = 3;
             context.Unavailability.Add(newUnavailability);
-            context.SaveChanges();
-
             var addedUnavailability = new Models.Unavailability
             {
                 UnavailabilityStartTime = newUnavailability.UnavailabilityStartTime,
                 UnavailabilityEndTime = newUnavailability.UnavailabilityEndTime,
                 UnavailabilityCause = newUnavailability.UnavailabilityCause
             };
+            try
+            {
+                context.SaveChanges();
+                addedUnavailability.UnavailabilityCause = "Uploaden gelukt";
+                return View(addedUnavailability);
+            }
+            catch (System.Data.Entity.Core.EntityException e)
+            {
+                context.Unavailability.Remove(newUnavailability);
+                addedUnavailability.UnavailabilityCause = "Uploaden gefaald";
 
-            return View(addedUnavailability);
+                return View(addedUnavailability); 
+
+            }
+
+
+
         }
     }
 }
