@@ -13,5 +13,15 @@ namespace PlanningSystem.Controllers
         {
             return View();
         }
+
+        public ActionResult checkAccount(Account account) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            if (context.Account.Any(a => a.username == account.username))
+            {
+                return RedirectToAction("Index", "Home");
+            } else {
+                return RedirectToAction("Login", "Login");
+            }
+        }
     }
 }
