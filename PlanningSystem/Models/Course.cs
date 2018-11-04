@@ -17,5 +17,8 @@ namespace PlanningSystem.Models
         public string description { get; set; }
         [DisplayName("Colleges")]
         public List<string> lectures { get; set; }
+
+        public bool isDisabled { get; set; }
+
     }
 }

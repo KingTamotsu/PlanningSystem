@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Net;
+using System.Web.UI.WebControls;
 
 namespace PlanningSystem.Controllers
 {
@@ -25,10 +29,11 @@ namespace PlanningSystem.Controllers
                 };
                 allCourses.Add(course);
             }
+
             return View(allCourses);
         }
 
-        // GET: PersonalDetails/Create
+        // GET: Course/Create
         public ActionResult Create()
         {
             return View();
@@ -57,5 +62,88 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Course");
         }
 
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditCourse()
+        {
+            return RedirectToAction("Overview", "Course");
+        }
+
+        public ActionResult EditCourse(Models.Course course)
+        {
+            var context = new PlanningSysteemEntities();
+            if (context.Course.Any(c => c.courseId == course.courseId))
+            {
+                var edited = new Course()
+                {
+                    courseId = course.courseId,
+                    courseCode = course.courseCode,
+                    courseName = course.courseName,
+                    description = course.description
+                };
+
+                context.Course.AddOrUpdate(edited);
+                context.SaveChanges();
+                return RedirectToAction("Overview", "Course");
+            }
+
+            else
+            {
+                return RedirectToAction("Overview", "Course");
+            }
+        }
+
+
+
+        // GET: Course
+        [HttpGet]
+        public ActionResult disable()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //POST: Course
+
+        public ActionResult DisableCourse(int courseId)
+        {
+            var context = new PlanningSysteemEntities();
+
+            try
+            {
+                Course course = context.Course.Find(courseId);
+                context.Course.Remove(course);
+                context.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Disable", "Course");
+            }
+
+            return RedirectToAction("Disable", "Course");
+        }
+
+        public ActionResult DisableCourse()
+        {
+            return View();
+        }
+
+        //public ActionResult DisableCourse(Models.Course course)
+        //{
+        //    var context = new PlanningSysteemEntities();
+        //    if (context.Course.Any(c => c.courseId == course.courseId))
+        //    {
+        //        var disCourse = context.Course.Where(c => c.disable == false).FirstOrDefault();
+        //        disCourse.disable = true;
+        //    }
+
+        //    context.SaveChanges();
+        //    return RedirectToAction("Disable", "Course");
     }
-}
+
+    //GET: Course
+ }
