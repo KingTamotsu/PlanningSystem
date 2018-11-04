@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace PlanningSystem.Controllers
 {
+    [Authorize]
     public class CourseController : Controller
     {
         // GET: Course

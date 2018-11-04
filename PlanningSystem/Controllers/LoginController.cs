@@ -32,13 +32,13 @@ namespace PlanningSystem.Controllers
                 TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
                 string UserUniqueKey = account.username + key;
                 Session["UserUniqueKey"] = UserUniqueKey;
-                SetupCode setupInfo =
-                    tfa.GenerateSetupCode("PlanningSysteem", account.username, UserUniqueKey, 300, 300);
+                SetupCode setupInfo = tfa.GenerateSetupCode("PlanningSysteem", account.username, UserUniqueKey, 300, 300);
                 ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
                 ViewBag.SetupCode = setupInfo.ManualEntryKey;
 
             }
 
+            ViewBag.Status = status;
             return View();
         }
 
