@@ -27,9 +27,12 @@ namespace PlanningSystem
         public System.DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
+        public Nullable<int> courseId { get; set; }
+        public bool isDisabled { get; set; }
     
+        public virtual Course Course { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Unavailability> Unavailability { get; set; }
-        public virtual Role Role { get; set; }
     }
 }

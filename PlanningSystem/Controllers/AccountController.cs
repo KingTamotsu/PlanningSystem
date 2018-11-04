@@ -12,7 +12,7 @@ namespace PlanningSystem.Controllers
         {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<Models.Account> allAccounts = new List<Models.Account>();
-            List<Account> accounts = context.Account.ToList();
+            List<Account> accounts = context.Account.Where(a => a.isDisabled == false).ToList();
 
             foreach (Account i in accounts) {
                 Models.Role roleinDB = new Models.Role()
@@ -76,6 +76,7 @@ namespace PlanningSystem.Controllers
                 firstLogin = account.firstLogin = true,
                 isResetted = account.isResetted = false,
                 createdAt = account.createdAt = DateTime.Now,
+                isDisabled = account.isDisabled = false
             };
             context.Account.Add(newAccount);
             context.SaveChanges();

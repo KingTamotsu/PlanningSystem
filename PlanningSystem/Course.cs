@@ -14,10 +14,20 @@ namespace PlanningSystem
     
     public partial class Course
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Course()
+        {
+            this.Account = new HashSet<Account>();
+        }
+    
         public int courseId { get; set; }
         public string courseCode { get; set; }
         public string courseName { get; set; }
         public string description { get; set; }
         public bool disable { get; set; }
+        public int hoursPerWeek { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Account> Account { get; set; }
     }
 }

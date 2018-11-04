@@ -16,6 +16,8 @@
           <Property Name="createdAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="firstLogin" Type="bit" Nullable="false" />
           <Property Name="isResetted" Type="bit" Nullable="false" />
+          <Property Name="courseId" Type="int" />
+          <Property Name="isDisabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -26,6 +28,7 @@
           <Property Name="courseName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="disable" Type="bit" Nullable="false" />
+          <Property Name="hoursPerWeek" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -44,6 +47,30 @@
           <Property Name="UnavailabilityCause" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Account_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Unavailability_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Unavailability" Type="Self.Unavailability" Multiplicity="*" />
@@ -56,30 +83,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="roleId" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="roleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PlanningSysteemModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unavailability" EntityType="Self.Unavailability" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_Course" Association="Self.FK_Account_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
           <AssociationSet Name="FK_Unavailability_Account" Association="Self.FK_Unavailability_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Unavailability" EntitySet="Unavailability" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -91,13 +110,17 @@
           <EntitySet Name="Course" EntityType="PlanningSysteemModel.Course" />
           <EntitySet Name="Role" EntityType="PlanningSysteemModel.Role" />
           <EntitySet Name="Unavailability" EntityType="PlanningSysteemModel.Unavailability" />
+          <AssociationSet Name="FK_Account_Course" Association="PlanningSysteemModel.FK_Account_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Role" Association="PlanningSysteemModel.FK_Account_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
           <AssociationSet Name="FK_Unavailability_Account" Association="PlanningSysteemModel.FK_Unavailability_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Unavailability" EntitySet="Unavailability" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="PlanningSysteemModel.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -111,8 +134,11 @@
           <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="firstLogin" Type="Boolean" Nullable="false" />
           <Property Name="isResetted" Type="Boolean" Nullable="false" />
+          <Property Name="courseId" Type="Int32" />
+          <Property Name="isDisabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="PlanningSysteemModel.FK_Account_Course" FromRole="Account" ToRole="Course" />
+          <NavigationProperty Name="Role" Relationship="PlanningSysteemModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Unavailability" Relationship="PlanningSysteemModel.FK_Unavailability_Account" FromRole="Account" ToRole="Unavailability" />
-          <NavigationProperty Name="Role" Relationship="PlanningSysteemModel.FK_User_Role" FromRole="Account" ToRole="Role" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -123,6 +149,8 @@
           <Property Name="courseName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="disable" Type="Boolean" Nullable="false" />
+          <Property Name="hoursPerWeek" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Account_Course" FromRole="Course" ToRole="Account" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -130,7 +158,7 @@
           </Key>
           <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="roleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_User_Role" FromRole="Role" ToRole="Account" />
+          <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Account_Role" FromRole="Role" ToRole="Account" />
         </EntityType>
         <EntityType Name="Unavailability">
           <Key>
@@ -143,6 +171,30 @@
           <Property Name="userID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Unavailability_Account" FromRole="Unavailability" ToRole="Account" />
         </EntityType>
+        <Association Name="FK_Account_Course">
+          <End Type="PlanningSysteemModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Role">
+          <End Type="PlanningSysteemModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Unavailability_Account">
           <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="1" />
           <End Type="PlanningSysteemModel.Unavailability" Role="Unavailability" Multiplicity="*" />
@@ -155,19 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Type="PlanningSysteemModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="roleId" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="roleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -176,6 +216,8 @@
           <EntitySetMapping Name="Account">
             <EntityTypeMapping TypeName="PlanningSysteemModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="isDisabled" ColumnName="isDisabled" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
                 <ScalarProperty Name="isResetted" ColumnName="isResetted" />
                 <ScalarProperty Name="firstLogin" ColumnName="firstLogin" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
@@ -189,6 +231,7 @@
           <EntitySetMapping Name="Course">
             <EntityTypeMapping TypeName="PlanningSysteemModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="hoursPerWeek" ColumnName="hoursPerWeek" />
                 <ScalarProperty Name="disable" ColumnName="disable" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="courseName" ColumnName="courseName" />

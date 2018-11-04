@@ -16,6 +16,7 @@ namespace PlanningSystem.Models
         public DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
+        public bool isDisabled { get; set; }
         public List<Account> allAccounts { get; set; }
 
     }

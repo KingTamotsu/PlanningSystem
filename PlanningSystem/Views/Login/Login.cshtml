@@ -5,27 +5,46 @@
 }
 
 
-
-@using (Html.BeginForm("checkAccount", "Login"))
+@if (ViewBag.Status == null || !ViewBag.Status)
 {
-    <h2 class="text-center">Log in</h2>
-    <div class="center-middle" >
-        <div class="form-group">
-            @Html.LabelFor(m => m.username)
-            @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.password)
-            @Html.TextBoxFor(m => m.password, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>
-        <div class="clearfix pull-left">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-        </div>
-        <div class="clearfix pull-right">
-            @Html.ActionLink("Forgot Password?", "Reset", "Account")
-        </div>
+    using (Html.BeginForm())
+     {
+         <h2 class="text-center">Log in</h2>
+         <div class="center-middle" >
+             <div class="form-group">
+                 @Html.LabelFor(m => m.username)
+                 @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
+             </div>
+             <div class="form-group">
+                 @Html.LabelFor(m => m.password)
+                 @Html.TextBoxFor(m => m.password, new { @class = "form-control" })
+             </div>
+             <div class="form-group">
+                 <button type="submit" class="btn btn-primary btn-block">Log in</button>
+             </div>
+             <div class="clearfix pull-left">
+                 <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+             </div>
+             <div class="clearfix pull-right">
+                 @Html.ActionLink("Wachtwoord vergeten?", "Reset", "Account")
+             </div>
+         </div>
+     }
+}
+else
+{
+    <div>
+        <img src="@ViewBag.BarcodeImageUrl"/>
+    </div>
+    <div>
+        Manual Setup Code : @ViewBag.SetupCode
+    </div>
+    <div>
+        @using (Html.BeginForm("Verify2FA", "Login", FormMethod.Post))
+        {
+            <input type="text" name="passcode"/>
+            <input type="submit" class="btn btn-success" />
+        }
     </div>
 }
+
