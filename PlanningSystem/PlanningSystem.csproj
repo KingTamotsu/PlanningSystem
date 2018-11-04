@@ -261,6 +261,8 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Unavailability\Formulier.cshtml" />
     <Content Include="Views\Unavailability\Respons.cshtml" />
+    <Content Include="Views\Course\Disable.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

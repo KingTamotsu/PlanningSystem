@@ -37,8 +37,10 @@
                 <td>@i.description</td>
 
                 <td>
-                    <button type="button" class="btn btn-primary">Wijzigen</button>
-                    <button type="button" class="btn btn-danger">Verwijderen</button>
+                @Html.ActionLink("Verwijderen", "Disable", "Course", new { @class = "btn btn-success" })
+
+                @Html.ActionLink("Wijzigen", "Edit", "Course", new { @class = "btn btn-success" })
+                    
                 </td>
             </tr>
         </tbody>
