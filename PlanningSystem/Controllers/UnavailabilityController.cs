@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 namespace PlanningSystem.Controllers
 {
-    [Authorize]
     public class UnavailabilityController : Controller
     {
         public ActionResult Formulier()

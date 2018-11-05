@@ -5,7 +5,6 @@ using System.Web.Mvc;
 
 namespace PlanningSystem.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         // GET: Account
