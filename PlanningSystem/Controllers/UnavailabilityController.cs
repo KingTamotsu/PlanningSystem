@@ -36,7 +36,7 @@ namespace PlanningSystem.Controllers
                 addedUnavailability.UnavailabilityCause = "Uploaden gelukt";
                 return View(addedUnavailability);
             }
-            catch (System.Data.Entity.Core.EntityException e)
+            catch (System.Data.Entity.Core.EntityException)
             {
                 context.Unavailability.Remove(newUnavailability);
                 addedUnavailability.UnavailabilityCause = "Uploaden gefaald";
