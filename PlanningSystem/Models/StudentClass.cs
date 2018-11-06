@@ -7,5 +7,7 @@ namespace PlanningSystem.Models
 {
     public class StudentClass
     {
+        public string ClassID { get; set; }
+        public int NumberOfStudents { get; set; }
     }
 }
