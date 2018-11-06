@@ -1,4 +1,5 @@
-﻿@model List<PlanningSystem.Models.Unavailability>
+﻿@model List<List<PlanningSystem.Models.Unavailability>>
+
 
 @{
     ViewBag.Title = "Inzien";
@@ -7,6 +8,19 @@
 
 <h2>Inzien</h2>
 
+@foreach (var subday in Model)
+{
+    foreach (var ding in subday)
+    {
+<p>@ding.UnavailabilityCause;</p>
+    }
+}
+
+
+
+
+
+    <br>
 <select name="selectie" multiple size="17">
     @for (int i = 0; i < 17; i++)
     {
@@ -14,5 +28,3 @@
     }
 
 </select>
-
-

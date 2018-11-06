@@ -52,22 +52,46 @@ namespace PlanningSystem.Controllers
         public ViewResult Inzien()
         {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
-            List<Models.Unavailability> allUnavailabilities = new List<Models.Unavailability>();
-            List<Unavailability> Unavailabilities = context.Unavailability.Where(a => a.userID == 3).ToList();
+            DateTime monday = new DateTime(2018, 11, 5, 9, 0, 0);
 
-            foreach (Unavailability u in Unavailabilities)
+            List<List<Models.Unavailability>> totalList = new List<List<Models.Unavailability>>();
+            List<Models.Unavailability> mondayUnavailabilities = new List<Models.Unavailability>();
+            totalList.Add(mondayUnavailabilities);
+            List<Models.Unavailability> tuesdayUnavailabilities = new List<Models.Unavailability>();
+            totalList.Add(tuesdayUnavailabilities);
+            List<Models.Unavailability> wednesdayUnavailabilities = new List<Models.Unavailability>();
+            totalList.Add(wednesdayUnavailabilities);
+            List<Models.Unavailability> thursdayUnavailabilities = new List<Models.Unavailability>();
+            totalList.Add(thursdayUnavailabilities);
+            List<Models.Unavailability> fridayUnavailabilities = new List<Models.Unavailability>();
+            totalList.Add(fridayUnavailabilities);
+            int i = 0;
+            foreach (List<Models.Unavailability> subday in totalList)
             {
-                Models.Unavailability unavailability = new Models.Unavailability()
+                DateTime dayoftheweek = monday.AddDays(i);
+                List<Unavailability> tempList = context.Unavailability.Where(a =>
+                    (a.UnavailabilityStartTime.Day == dayoftheweek.Day) &&
+                    (a.UnavailabilityStartTime.Month == dayoftheweek.Month) &&
+                    (a.UnavailabilityStartTime.Year == dayoftheweek.Year) &&
+                    (a.userID == 3))
+                    .ToList();
+                foreach (Unavailability u in tempList)
                 {
-                    UnavailabilityCause = u.UnavailabilityCause,
-                    UnavailabilityStartTime = u.UnavailabilityStartTime,
-                    UnavailabilityEndTime = u.UnavailabilityEndTime,
-                    UnavailabilityID = u.UnavailabilityID,
-                    userID = 3,
-                };
-                allUnavailabilities.Add(unavailability);
+                    Models.Unavailability unavailability = new Models.Unavailability()
+                    {
+                        UnavailabilityCause = u.UnavailabilityCause,
+                        UnavailabilityStartTime = u.UnavailabilityStartTime,
+                        UnavailabilityEndTime = u.UnavailabilityEndTime,
+                        UnavailabilityID = u.UnavailabilityID,
+                        userID = 3,
+                    };
+                    subday.Add(unavailability);
+                }
+                i++;
+
             }
-            return View(allUnavailabilities);
+
+            return View(totalList);
         }
     }
 }
