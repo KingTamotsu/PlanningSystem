@@ -63,33 +63,7 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Course");
         }
    
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Course/Create
-        //[HttpPost]
-
-        //public ActionResult CreateCourse(Models.Course course)
-        //{
-        //    var context = new PlanningSysteemEntities();
-        //    var newCourse = new Course
-        //    {
-        //        courseId = course.courseId,
-        //        courseCode = course.courseCode,
-        //        courseName = course.courseName,
-        //        description = course.description
-        //    };
-        //    context.Course.Add(newCourse);
-        //    context.SaveChanges();
-        //    return RedirectToAction("Overview", "Course");
-        //}
-
-        //public ActionResult CreateCourse()
-        //{
-        //    return RedirectToAction("Overview", "Course");
-        //}
+        
 
         // GET: Course/Edit
         [HttpGet]
@@ -106,11 +80,12 @@ namespace PlanningSystem.Controllers
             {
                 return HttpNotFound();
             }
-            return View();
+            return RedirectToAction("Overview", "Course");
         }
+    
 
         //POST: Course/Edit
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         public ActionResult EditCourse(int? id)
         {
             var context = new PlanningSysteemEntities();
@@ -132,48 +107,9 @@ namespace PlanningSystem.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-
-            return View(courseToUpdate);
+            return RedirectToAction("Overview", "Course");
         }
-
-
-
-        //public ActionResult Edit()
-        //{
-        //    return View();
-        //}
-
-        //[HttpGet]
-        //public ActionResult EditCourse()
-        //{
-        //    return RedirectToAction("Overview", "Course");
-        //}
-
-        //public ActionResult EditCourse(Models.Course course)
-        //{
-        //    var context = new PlanningSysteemEntities();
-        //    if (context.Course.Any(c => c.courseId == course.courseId))
-        //    {
-        //        var edited = new Course()
-        //        {
-        //            courseId = course.courseId,
-        //            courseCode = course.courseCode,
-        //            courseName = course.courseName,
-        //            description = course.description
-        //        };
-
-        //        context.SaveChanges();
-        //        return RedirectToAction("Overview", "Course");
-        //    }
-
-        //    else
-        //    {
-        //        return RedirectToAction("Overview", "Course");
-        //    }
-        //}
-
-
-
+   
         // GET: Course
         [HttpGet]
         public ActionResult disable()
@@ -219,6 +155,4 @@ namespace PlanningSystem.Controllers
         //    context.SaveChanges();
         //    return RedirectToAction("Disable", "Course");
     }
-
-    //GET: Course
  }
