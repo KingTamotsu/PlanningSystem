@@ -124,15 +124,13 @@ namespace PlanningSystem.Controllers
                     accountCurrent.isResetted = true;
                     context.SaveChanges();
                 }
+                return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
             }
-            else
-            {
+            else {
                 newPassword = "Deze gebruiker bestaat niet";
-                //return RedirectToAction("Reset", "Account");
-                
-            }
+                return RedirectToAction("Reset", "Account");
 
-            return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
+            }
         }
 
         public ActionResult resettedpassword(string password)
