@@ -1,0 +1,18 @@
+﻿@model List<PlanningSystem.Models.Unavailability>
+
+@{
+    ViewBag.Title = "Inzien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inzien</h2>
+
+<select name="selectie" multiple size="17">
+    @for (int i = 0; i < 17; i++)
+    {
+        <option value="">@i</option>
+    }
+
+</select>
+
+

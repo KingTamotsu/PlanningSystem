@@ -41,12 +41,34 @@ namespace PlanningSystem.Controllers
                 context.Unavailability.Remove(newUnavailability);
                 addedUnavailability.UnavailabilityCause = "Uploaden gefaald";
 
-                return View(addedUnavailability); 
+                return View(addedUnavailability);
 
             }
 
 
 
         }
+
+        public ViewResult Inzien()
+        {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            List<Models.Unavailability> allUnavailabilities = new List<Models.Unavailability>();
+            List<Unavailability> Unavailabilities = context.Unavailability.Where(a => a.userID == 3).ToList();
+
+            foreach (Unavailability u in Unavailabilities)
+            {
+                Models.Unavailability unavailability = new Models.Unavailability()
+                {
+                    UnavailabilityCause = u.UnavailabilityCause,
+                    UnavailabilityStartTime = u.UnavailabilityStartTime,
+                    UnavailabilityEndTime = u.UnavailabilityEndTime,
+                    UnavailabilityID = u.UnavailabilityID,
+                    userID = 3,
+                };
+                allUnavailabilities.Add(unavailability);
+            }
+            return View(allUnavailabilities);
+        }
     }
 }
+
