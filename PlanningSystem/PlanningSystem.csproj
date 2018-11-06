@@ -283,6 +283,7 @@
     <Content Include="Views\Course\Disable.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Schedule\Schedule.cshtml" />
+    <Content Include="Views\Unavailability\Inzien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
