@@ -14,7 +14,8 @@ namespace PlanningSystem.Controllers
             List<Models.Account> allAccounts = new List<Models.Account>();
             List<Account> accounts = context.Account.Where(a => a.isDisabled == false).ToList();
 
-            foreach (Account i in accounts) {
+            foreach (Account i in accounts)
+            {
                 Models.Role roleinDB = new Models.Role()
                 {
                     roleId = i.Role.roleId,
