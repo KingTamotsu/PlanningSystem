@@ -8,23 +8,75 @@
 
 <h2>Inzien</h2>
 
-@foreach (var subday in Model)
+@foreach (var weekday in Model)
 {
-    foreach (var ding in subday)
+    if (!weekday.Any())
     {
-<p>@ding.UnavailabilityCause;</p>
+        <select name="selectie" size="17" disabled>
+            @for (int i = 0; i < 17; i++)
+            {
+                <option value="">-</option>
+            }
+
+        </select>
+    }
+    else
+    {
+        int currentHour = 8;
+        int currentMinute = 30;
+
+        <select name="selectie" size="17">
+            @foreach (var u in weekday)
+            {
+                bool notDone = true;
+                bool fillRest = false;
+                while (notDone)
+                {
+                    if (currentMinute == 00)
+                    {
+                        currentMinute = 30;
+                    }
+                    else
+                    {
+                        currentMinute = 00;
+                        currentHour++;
+                    if (currentHour == u.UnavailabilityStartTime.Hour && currentMinute == u.UnavailabilityStartTime.Minute)
+                    {
+                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
+                        fillRest = true;
+                    }
+                    else if (currentHour == u.UnavailabilityEndTime.Hour && currentMinute == u.UnavailabilityEndTime.Minute)
+                    {
+                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
+                        fillRest = false;
+                        notDone = false;
+                    }
+                    else if (fillRest)
+                    {
+                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
+                    }
+                    else
+                    {
+                        <option value="">-</option>
+                    }
+                    }
+                }
+
+
+            }
+            @while (currentHour != 18 || currentMinute != 00)
+            {
+                <option value="">-</option>
+                if (currentMinute == 00)
+                {
+                    currentMinute = 30;
+                }
+                else
+                {
+                    currentMinute = 00;
+                    currentHour++;
+                }
+            }
+        </select>
     }
 }
-
-
-
-
-
-    <br>
-<select name="selectie" multiple size="17">
-    @for (int i = 0; i < 17; i++)
-    {
-        <option value="">@i</option>
-    }
-
-</select>

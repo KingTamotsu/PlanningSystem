@@ -88,7 +88,7 @@ namespace PlanningSystem.Controllers
                     subday.Add(unavailability);
                 }
                 i++;
-
+                subday.Sort((a, b) => a.UnavailabilityStartTime.CompareTo(b.UnavailabilityStartTime));
             }
 
             return View(totalList);
