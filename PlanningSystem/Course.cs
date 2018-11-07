@@ -18,6 +18,7 @@ namespace PlanningSystem
         public Course()
         {
             this.Account = new HashSet<Account>();
+            this.Schedule = new HashSet<Schedule>();
         }
     
         public int courseId { get; set; }
@@ -29,5 +30,7 @@ namespace PlanningSystem
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

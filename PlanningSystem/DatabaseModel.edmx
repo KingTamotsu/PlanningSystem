@@ -100,6 +100,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Schedule_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Schedule_Classroom">
           <End Role="Classroom" Type="Self.Classroom" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -109,6 +121,30 @@
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="ClassroomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_StudentClass">
+          <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="ClassID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -140,8 +176,20 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
           </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Account" Association="Self.FK_Schedule_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Schedule_Classroom" Association="Self.FK_Schedule_Classroom">
             <End Role="Classroom" EntitySet="Classroom" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Course" Association="Self.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_StudentClass" Association="Self.FK_Schedule_StudentClass">
+            <End Role="StudentClass" EntitySet="StudentClass" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
           <AssociationSet Name="FK_Unavailability_Account" Association="Self.FK_Unavailability_Account">
@@ -169,12 +217,24 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
           </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Account" Association="PlanningSysteemModel.FK_Schedule_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Unavailability_Account" Association="PlanningSysteemModel.FK_Unavailability_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Unavailability" EntitySet="Unavailability" />
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_Classroom" Association="PlanningSysteemModel.FK_Schedule_Classroom">
             <End Role="Classroom" EntitySet="Classroom" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Course" Association="PlanningSysteemModel.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_StudentClass" Association="PlanningSysteemModel.FK_Schedule_StudentClass">
+            <End Role="StudentClass" EntitySet="StudentClass" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
@@ -193,6 +253,7 @@
           <Property Name="isDisabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Course" Relationship="PlanningSysteemModel.FK_Account_Course" FromRole="Account" ToRole="Course" />
           <NavigationProperty Name="Role" Relationship="PlanningSysteemModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_Account" FromRole="Account" ToRole="Schedule" />
           <NavigationProperty Name="Unavailability" Relationship="PlanningSysteemModel.FK_Unavailability_Account" FromRole="Account" ToRole="Unavailability" />
         </EntityType>
         <EntityType Name="Classroom">
@@ -214,6 +275,7 @@
           <Property Name="disable" Type="Boolean" Nullable="false" />
           <Property Name="hoursPerWeek" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Account_Course" FromRole="Course" ToRole="Account" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -237,7 +299,10 @@
           <Property Name="DateStartTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DateEndTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ClassroomID" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Schedule_Account" FromRole="Schedule" ToRole="Account" />
           <NavigationProperty Name="Classroom" Relationship="PlanningSysteemModel.FK_Schedule_Classroom" FromRole="Schedule" ToRole="Classroom" />
+          <NavigationProperty Name="Course" Relationship="PlanningSysteemModel.FK_Schedule_Course" FromRole="Schedule" ToRole="Course" />
+          <NavigationProperty Name="StudentClass" Relationship="PlanningSysteemModel.FK_Schedule_StudentClass" FromRole="Schedule" ToRole="StudentClass" />
         </EntityType>
         <EntityType Name="StudentClass">
           <Key>
@@ -245,6 +310,7 @@
           </Key>
           <Property Name="ClassID" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
           <Property Name="NumberOfStudents" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_StudentClass" FromRole="StudentClass" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Unavailability">
           <Key>
@@ -281,6 +347,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Schedule_Account">
+          <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Unavailability_Account">
           <End Type="PlanningSysteemModel.Account" Role="Account" Multiplicity="1" />
           <End Type="PlanningSysteemModel.Unavailability" Role="Unavailability" Multiplicity="*" />
@@ -302,6 +380,30 @@
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="ClassroomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Course">
+          <End Type="PlanningSysteemModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_StudentClass">
+          <End Type="PlanningSysteemModel.StudentClass" Role="StudentClass" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="ClassID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

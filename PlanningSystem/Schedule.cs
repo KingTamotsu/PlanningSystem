@@ -25,6 +25,9 @@ namespace PlanningSystem
         public System.DateTime DateEndTime { get; set; }
         public string ClassroomID { get; set; }
     
+        public virtual Account Account { get; set; }
         public virtual Classroom Classroom { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual StudentClass StudentClass { get; set; }
     }
 }

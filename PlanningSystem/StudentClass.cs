@@ -14,7 +14,16 @@ namespace PlanningSystem
     
     public partial class StudentClass
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StudentClass()
+        {
+            this.Schedule = new HashSet<Schedule>();
+        }
+    
         public string ClassID { get; set; }
         public int NumberOfStudents { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

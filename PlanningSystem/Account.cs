@@ -17,6 +17,7 @@ namespace PlanningSystem
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
+            this.Schedule = new HashSet<Schedule>();
             this.Unavailability = new HashSet<Unavailability>();
         }
     
@@ -32,6 +33,8 @@ namespace PlanningSystem
     
         public virtual Course Course { get; set; }
         public virtual Role Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Unavailability> Unavailability { get; set; }
     }
