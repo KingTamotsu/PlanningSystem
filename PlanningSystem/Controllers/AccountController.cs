@@ -7,7 +7,8 @@ namespace PlanningSystem.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+        #region ViewPages
+
         public ActionResult Overview()
         {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -34,12 +35,6 @@ namespace PlanningSystem.Controllers
             return View(allAccounts);
         }
 
-        // GET: Account/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         public ActionResult Create()
         {
             var context = new PlanningSysteemEntities();
@@ -58,11 +53,44 @@ namespace PlanningSystem.Controllers
             return View();
         }
 
+        public ActionResult Edit(Models.Account account)
+        {
+            var context = new PlanningSysteemEntities();
+
+            List<Role> roles = context.Role.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var role in roles)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = role.roleName,
+                    Value = role.roleId.ToString(),          
+                });
+            }
+            ViewData["ListItems"] = items;
+            return View(account);
+        }
+
+        public ActionResult Delete(Models.Account account)
+        {
+            return View(account);
+        }
+
         public ActionResult Reset()
         {
             return View();
         }
 
+        public ActionResult resettedpassword(string password)
+        {
+            Models.Account account = new Models.Account();
+            ViewData["password"] = password;
+            return View(account);
+        }
+
+        #endregion
+
+        #region ActionResults
 
         [HttpPost]
         // POST: Account/Create
@@ -86,29 +114,24 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Account");
         }
 
-        // PUT: Account/Edit/5
-        public ActionResult Edit(Account account)
-        {
-            return View();
-        }
 
+        [HttpPost]
         public ActionResult EditAccount(Account account)
         {
-
+            var context = new PlanningSysteemEntities();
+            Account accountDB = context.Account.Where(a => a.userId == account.userId).FirstOrDefault();
+            accountDB.username = account.username;
+            accountDB.name = account.name;
+            accountDB.roleId = Int32.Parse(Request.Form["Role"]);
+            context.SaveChanges();
             return RedirectToAction("Overview", "Account");
-        }
-
-        // DEL: Account/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View("Overview");
         }
 
         [HttpPost]
         // POST: Account/Reset
         public ActionResult ResetAccount(Account currentAccount)
         {
-            string newPassword; // = "testrggr";
+            string newPassword;
 
             var context = new PlanningSysteemEntities();
             if (context.Account.Any(a => a.username == currentAccount.username))
@@ -137,11 +160,22 @@ namespace PlanningSystem.Controllers
             }
         }
 
-        public ActionResult resettedpassword(string password)
+        [HttpPost]
+        public ActionResult DeleteAccount(Models.Account account)
         {
-            Models.Account account = new Models.Account();
-            ViewData["password"] = password;
-            return View(account);
+
+            if (account.userId != null)
+            {
+                var context = new PlanningSysteemEntities();
+                Account accountDB = context.Account.Where(a => a.userId == account.userId).FirstOrDefault();
+                accountDB.isDisabled = true;
+                context.SaveChanges();
+                return RedirectToAction("Overview", "Account");
+            } 
+
+            return RedirectToAction("Overview", "Account");
         }
     }
+
+    #endregion
 }

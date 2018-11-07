@@ -7,7 +7,7 @@ namespace PlanningSystem.Models
 {
     public class Account
     {
-        public int userId;
+        public int userId { get; set; }
         [DisplayName("Gebruikersnaam")]
         public string username { get; set; }
         [DisplayName("Wachtwoord")]
@@ -20,7 +20,6 @@ namespace PlanningSystem.Models
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
         public bool isDisabled { get; set; }
-        public List<Account> allAccounts { get; set; }
 
     }
 }
