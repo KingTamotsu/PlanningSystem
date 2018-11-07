@@ -40,7 +40,7 @@
                 <td>@i.createdAt</td>
 
                 <td>
-                    <button type="button" class="btn btn-primary">Wijzigen</button>
+                    @Html.ActionLink("Wijzigen", "Edit", "Account", new { @class = "btn btn-primary" })
                     <button type="button" class="btn btn-danger">Verwijderen</button>
                 </td>
             </tr>

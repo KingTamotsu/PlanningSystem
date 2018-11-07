@@ -86,13 +86,14 @@ namespace PlanningSystem.Controllers
         }
 
         // PUT: Account/Edit/5
-        public ActionResult Edit()
+        public ActionResult Edit(Account account)
         {
             return View();
         }
 
         public ActionResult EditAccount(Account account)
         {
+
             return RedirectToAction("Overview", "Account");
         }
 
