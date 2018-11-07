@@ -20,9 +20,9 @@ namespace PlanningSystem
         public int userId { get; set; }
         public int SchoolweekNumber { get; set; }
         public string Schoolyear { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.DateTime DayDate { get; set; }
         public System.DateTime DateStartTime { get; set; }
-        public System.DateTime DateStart { get; set; }
+        public System.DateTime DateEndTime { get; set; }
         public string ClassroomID { get; set; }
     
         public virtual Classroom Classroom { get; set; }
