@@ -24,6 +24,7 @@ namespace PlanningSystem.Controllers
                 Models.Account account = new Models.Account() {
                     userId = i.userId,
                     username = i.username,
+                    name = i.name,
                     role = roleinDB,
                     createdAt = i.createdAt,
                     firstLogin = i.firstLogin
@@ -73,6 +74,7 @@ namespace PlanningSystem.Controllers
                 userId = account.userId,
                 username = account.username,
                 password = account.password,
+                name = account.name,
                 roleId = Int32.Parse(Request.Form["Role"]),
                 firstLogin = account.firstLogin = true,
                 isResetted = account.isResetted = false,
