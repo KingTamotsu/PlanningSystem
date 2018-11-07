@@ -48,7 +48,7 @@ namespace PlanningSystem.Controllers
         }
         [HttpPost]
         // POST: Account/Create
-        public ActionResult CreateClassroom(Models.Schedule account)
+        public ActionResult CreateScheduleClassroom(Models.Schedule account)
         {
             var context = new PlanningSysteemEntities();
             var newSchedule = new Schedule
