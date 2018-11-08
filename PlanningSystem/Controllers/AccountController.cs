@@ -185,7 +185,7 @@ namespace PlanningSystem.Controllers {
         /// <returns>Redirect to Overview Page</returns>
         [HttpPost]
         public ActionResult DeleteAccount(Models.Account account) {
-            if (account.userId != null) {
+            if (account.userId != 0) {
                 PlanningSysteemEntities context = new PlanningSysteemEntities();
                 Account accountDB = context.Account.Where(a => a.userId == account.userId).FirstOrDefault();
                 accountDB.isDisabled = true;
