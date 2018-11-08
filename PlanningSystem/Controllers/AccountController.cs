@@ -9,6 +9,10 @@ namespace PlanningSystem.Controllers
     {
         #region ViewPages
 
+        /// <summary>
+        /// This method gets all accounts in the database and forwards it to the view. 
+        /// </summary>
+        /// <returns>View Page</returns>
         public ActionResult Overview()
         {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -35,6 +39,10 @@ namespace PlanningSystem.Controllers
             return View(allAccounts);
         }
 
+        /// <summary>
+        /// This method gets all roles from database and forwards it to the view.
+        /// </summary>
+        /// <returns>View Page</returns>
         public ActionResult Create()
         {
             var context = new PlanningSysteemEntities();
@@ -53,6 +61,11 @@ namespace PlanningSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This method gets all roles from database and forwards it to the view.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns></returns>
         public ActionResult Edit(Models.Account account)
         {
             var context = new PlanningSysteemEntities();
@@ -71,16 +84,30 @@ namespace PlanningSystem.Controllers
             return View(account);
         }
 
+        /// <summary>
+        /// This method opens the view page.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>View Page</returns>
         public ActionResult Delete(Models.Account account)
         {
             return View(account);
         }
 
+        /// <summary>
+        /// This method opens the view page.
+        /// </summary>
+        /// <returns>View Page</returns>
         public ActionResult Reset()
         {
             return View();
         }
 
+        /// <summary>
+        /// This method opens the view page.
+        /// </summary>
+        /// <param name="password">String with the password</param>
+        /// <returns>View Page</returns>
         public ActionResult resettedpassword(string password)
         {
             Models.Account account = new Models.Account();
@@ -92,8 +119,13 @@ namespace PlanningSystem.Controllers
 
         #region ActionResults
 
+
+        /// <summary>
+        /// This method creates an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview page of account.</returns>
         [HttpPost]
-        // POST: Account/Create
         public ActionResult CreateAccount(Models.Account account)
         {
             var context = new PlanningSysteemEntities();
@@ -114,7 +146,11 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Account");
         }
 
-
+        /// <summary>
+        /// This method update an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview page of account.</returns>
         [HttpPost]
         public ActionResult EditAccount(Account account)
         {
@@ -127,8 +163,12 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Account");
         }
 
+        /// <summary>
+        /// This method is for resetting the password of a account.
+        /// </summary>
+        /// <param name="currentAccount">Account object</param>
+        /// <returns>Redirect to Reset page of account or if it succeeds to ResettedPassword</returns>
         [HttpPost]
-        // POST: Account/Reset
         public ActionResult ResetAccount(Account currentAccount)
         {
             string newPassword;
@@ -160,6 +200,11 @@ namespace PlanningSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// THis method is to disable(soft delete) an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview Page</returns>
         [HttpPost]
         public ActionResult DeleteAccount(Models.Account account)
         {
