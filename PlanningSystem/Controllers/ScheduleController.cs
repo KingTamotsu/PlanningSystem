@@ -41,10 +41,15 @@ namespace PlanningSystem.Controllers {
 
         [HttpPost]
         // POST: Account/Create
-        public ActionResult CreateScheduleClassroom(Models.Schedule account) {
+        public ActionResult CreateScheduleClassroom(Models.Schedule sched) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             Schedule newSchedule = new Schedule {
-                //userId = account.userId,
+                userId = 3, //sched.userId,
+                courseId = 1,
+                SchoolweekNumber = 22,
+                Schoolyear = "18/19",
+                //DayDate = "2018, 9, 10, 9, 0, 0",
+                ClassroomID = "test1",
                 //username = account.username,
                 //password = account.password,
                 ClassID = Request.Form["StudentClass"]
