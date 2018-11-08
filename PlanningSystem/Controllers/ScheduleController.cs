@@ -54,6 +54,26 @@ namespace PlanningSystem.Controllers {
                 });
             ViewData["ListItemsMonths"] = items3;
 
+            List<SchoolWeekNumber> AllWeeks = context.SchoolWeekNumber.ToList();
+            List<SelectListItem> items4 = new List<SelectListItem>();
+            foreach (SchoolWeekNumber weeks in AllWeeks)
+                items4.Add(new SelectListItem
+                {
+                    Text = weeks.NumberOfTheWeek.ToString(),
+                    Value = weeks.NumberOfTheWeek.ToString()
+                });
+            ViewData["ListItemsWeeks"] = items4;
+
+            List<DaysOfTheWeek> AllDays = context.DaysOfTheWeek.ToList();
+            List<SelectListItem> items5 = new List<SelectListItem>();
+            foreach (DaysOfTheWeek days in AllDays)
+                items5.Add(new SelectListItem
+                {
+                    Text = days.Day,
+                    Value = days.Day
+                });
+            ViewData["ListItemsDays"] = items5;
+
             return View();
 
             //return View(AllClasses);
@@ -67,8 +87,8 @@ namespace PlanningSystem.Controllers {
                 //Schoolyear = "18/19",
                 SchoolYear = Request.Form["StudentYear"],
                 Month = Request.Form["StudentMonth"],
-                SchoolweekNumber = 22,
-                Day = "Ma",
+                SchoolWeekNumber = int.Parse(Request.Form["StudentWeek"]),
+                Day = Request.Form["StudentDay"],
                 courseId = 1,
                 userId = 3, //sched.userId,
                 

@@ -14,6 +14,15 @@ namespace PlanningSystem
     
     public partial class SchoolWeekNumber
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SchoolWeekNumber()
+        {
+            this.Schedule = new HashSet<Schedule>();
+        }
+    
         public int NumberOfTheWeek { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

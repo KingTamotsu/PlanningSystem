@@ -14,6 +14,15 @@ namespace PlanningSystem
     
     public partial class DaysOfTheWeek
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DaysOfTheWeek()
+        {
+            this.Schedule = new HashSet<Schedule>();
+        }
+    
         public string Day { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

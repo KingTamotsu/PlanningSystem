@@ -197,9 +197,11 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Classroom.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\DaysOfTheWeek.cs" />
     <Compile Include="Models\Months.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\SchoolWeekNumber.cs" />
     <Compile Include="Models\SchoolYears.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Models\Unavailability.cs" />
