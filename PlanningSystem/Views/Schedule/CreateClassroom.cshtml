@@ -22,7 +22,9 @@
     @Html.LabelFor(i => i.day.Day)
     @Html.DropDownList("StudentDay", (IEnumerable<SelectListItem>)ViewData["ListItemsDays"])
     @Html.LabelFor(i => i.user.userId)
-    @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsteachers"])
+    @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsTeachers"])
+    @Html.LabelFor(i => i.course.courseId)
+    @Html.DropDownList("Courses", (IEnumerable<SelectListItem>)ViewData["ListItemsCourses"])
 </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }

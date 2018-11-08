@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace PlanningSystem.Models {
     public class Course {
@@ -19,5 +23,7 @@ namespace PlanningSystem.Models {
         [DisplayName("Docent")]
         public string teacher { get; set; }
         public bool isDisabled { get; set; }
+
+        public IEnumerable<SelectListItem> AllCourses { get; set; }
     }
 }
