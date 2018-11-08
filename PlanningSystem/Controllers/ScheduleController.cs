@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace PlanningSystem.Controllers
-{
-    public class ScheduleController : Controller
-    {
+namespace PlanningSystem.Controllers {
+    public class ScheduleController : Controller {
         // GET: Schedule
-        public ActionResult CreateClassroom()
-        {
+        public ActionResult CreateClassroom() {
             //PlanningSysteemEntities context = new PlanningSysteemEntities();
             //List<Models.Schedule> CreateSchedule = new List<Models.Schedule>();
             //List<Schedule> schedule = context.Account.Where(a => a.isDisabled == false).ToList(); // list classnaam listnaam voorwaarde en ophalen
@@ -21,42 +16,38 @@ namespace PlanningSystem.Controllers
 
             //foreach (StudentClass i in studentclasses)
             //{
-                //Models.StudentClass studentclass = new Models.StudentClass()
-                //{
-                    //ClassID = i.ClassID
-                //};
-                //AllClasses.Add(studentclass);
+            //Models.StudentClass studentclass = new Models.StudentClass()
+            //{
+            //ClassID = i.ClassID
+            //};
+            //AllClasses.Add(studentclass);
             //}
 
 
-            var context = new PlanningSysteemEntities();
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<StudentClass> AllClasses = context.StudentClass.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
-            foreach (var Classes in AllClasses)
-            {
-                items.Add(new SelectListItem
-                {
+            foreach (StudentClass Classes in AllClasses)
+                items.Add(new SelectListItem {
                     Text = Classes.ClassID,
                     Value = Classes.ClassID
                 });
-            }
             ViewData["ListItemsStudentClasses"] = items;
             return View();
 
 
             //return View(AllClasses);
         }
+
         [HttpPost]
         // POST: Account/Create
-        public ActionResult CreateScheduleClassroom(Models.Schedule account)
-        {
-            var context = new PlanningSysteemEntities();
-            var newSchedule = new Schedule
-            {
+        public ActionResult CreateScheduleClassroom(Models.Schedule account) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            Schedule newSchedule = new Schedule {
                 //userId = account.userId,
                 //username = account.username,
                 //password = account.password,
-                ClassID = (Request.Form["StudentClass"]),
+                ClassID = Request.Form["StudentClass"]
                 //firstLogin = account.firstLogin = true,
                 //isResetted = account.isResetted = false,
                 //createdAt = account.createdAt = DateTime.Now,
@@ -66,6 +57,5 @@ namespace PlanningSystem.Controllers
             context.SaveChanges();
             return RedirectToAction("Overview", "Account");
         }
-
     }
 }

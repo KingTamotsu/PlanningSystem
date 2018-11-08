@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.ComponentModel;
 
-namespace PlanningSystem.Models
-{
-    public class Schedule
-    {
+namespace PlanningSystem.Models {
+    public class Schedule {
         public int ID;
         public string ClassID { get; set; }
         public int courseId { get; set; }
