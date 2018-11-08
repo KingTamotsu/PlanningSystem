@@ -122,7 +122,7 @@ namespace PlanningSystem.Controllers {
             };
             context.Schedule.Add(newSchedule);
             context.SaveChanges();
-            return RedirectToAction("Overview", "Account");
+            return RedirectToAction("CreateSchedule", "Schedule");
         }
     }
 }
