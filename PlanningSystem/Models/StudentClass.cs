@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Web.Mvc;
 
-namespace PlanningSystem.Models
-{
-    public class StudentClass
-    {
+namespace PlanningSystem.Models {
+    public class StudentClass {
+        [DisplayName("klasnaam")]
         public string ClassID { get; set; }
+
         public int NumberOfStudents { get; set; }
+        public IEnumerable<SelectListItem> AllClasses { get; set; }
     }
 }

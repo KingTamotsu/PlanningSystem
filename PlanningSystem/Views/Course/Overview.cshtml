@@ -24,6 +24,7 @@
             <th scope="col">Cursus naam</th>
             @*<th scope="col">Rol</th>*@
             <th scope="col">Beschrijving</th>
+            <th scope="col">Docent</th>
 
         </tr>
     </thead>
@@ -35,9 +36,10 @@
                 <th>@i.courseCode</th>
                 <td>@i.courseName</td>
                 <td>@i.description</td>
+                <td>@i.teacher</td>
 
                 <td>
-                    @Html.ActionLink("Wijzigen", "Edit", "Course", new {id = i.courseId, @class = "btn btn-primary" })
+                    @Html.ActionLink("Wijzigen", "Edit", "Course", new { id = i.courseId, @class = "btn btn-primary" })
                     @Html.ActionLink("Verwijderen", "Disable", "Course", new { @class = "btn btn-danger" })
                 </td>
             </tr>
