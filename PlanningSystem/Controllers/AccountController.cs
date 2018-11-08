@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace PlanningSystem.Controllers
-{
-    public class AccountController : Controller
-    {
-        // GET: Account
-        public ActionResult Overview()
-        {
+namespace PlanningSystem.Controllers {
+    public class AccountController : Controller {
+        #region ViewPages
+
+        /// <summary>
+        ///     This method gets all accounts in the database and forwards it to the view.
+        /// </summary>
+        /// <returns>View Page</returns>
+        public ActionResult Overview() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<Models.Account> allAccounts = new List<Models.Account>();
             List<Account> accounts = context.Account.Where(a => a.isDisabled == false).ToList();
 
             foreach (Account i in accounts) {
-                Models.Role roleinDB = new Models.Role()
-                {
+                Models.Role roleinDB = new Models.Role {
                     roleId = i.Role.roleId,
                     roleName = i.Role.roleName
                 };
-                Models.Account account = new Models.Account() {
+                Models.Account account = new Models.Account {
                     userId = i.userId,
                     username = i.username,
                     name = i.name,
@@ -30,51 +31,93 @@ namespace PlanningSystem.Controllers
                 };
                 allAccounts.Add(account);
             }
+
             return View(allAccounts);
         }
 
-        // GET: Account/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        public ActionResult Create()
-        {
-            var context = new PlanningSysteemEntities();
+        /// <summary>
+        ///     This method gets all roles from database and forwards it to the view.
+        /// </summary>
+        /// <returns>View Page</returns>
+        public ActionResult Create() {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
 
             List<Role> roles = context.Role.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
-            foreach (var role in roles)
-            {
-                items.Add(new SelectListItem
-                {
+            foreach (Role role in roles)
+                items.Add(new SelectListItem {
                     Text = role.roleName,
                     Value = role.roleId.ToString()
                 });
-            }
             ViewData["ListItems"] = items;
             return View();
         }
 
-        public ActionResult Reset()
-        {
+        /// <summary>
+        ///     This method gets all roles from database and forwards it to the view.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns></returns>
+        public ActionResult Edit(Models.Account account) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+
+            List<Role> roles = context.Role.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (Role role in roles)
+                items.Add(new SelectListItem {
+                    Text = role.roleName,
+                    Value = role.roleId.ToString()
+                });
+            ViewData["ListItems"] = items;
+            return View(account);
+        }
+
+        /// <summary>
+        ///     This method opens the view page.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>View Page</returns>
+        public ActionResult Delete(Models.Account account) {
+            return View(account);
+        }
+
+        /// <summary>
+        ///     This method opens the view page.
+        /// </summary>
+        /// <returns>View Page</returns>
+        public ActionResult Reset() {
             return View();
         }
 
+        /// <summary>
+        ///     This method opens the view page.
+        /// </summary>
+        /// <param name="password">String with the password</param>
+        /// <returns>View Page</returns>
+        public ActionResult resettedpassword(string password) {
+            Models.Account account = new Models.Account();
+            ViewData["password"] = password;
+            return View(account);
+        }
 
+        #endregion
+
+        #region ActionResults
+
+        /// <summary>
+        ///     This method creates an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview page of account.</returns>
         [HttpPost]
-        // POST: Account/Create
-        public ActionResult CreateAccount(Models.Account account)
-        {
-            var context = new PlanningSysteemEntities();
-            var newAccount = new Account
-            {
+        public ActionResult CreateAccount(Models.Account account) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            Account newAccount = new Account {
                 userId = account.userId,
                 username = account.username,
                 password = account.password,
                 name = account.name,
-                roleId = Int32.Parse(Request.Form["Role"]),
+                roleId = int.Parse(Request.Form["Role"]),
                 firstLogin = account.firstLogin = true,
                 isResetted = account.isResetted = false,
                 createdAt = account.createdAt = DateTime.Now,
@@ -85,61 +128,74 @@ namespace PlanningSystem.Controllers
             return RedirectToAction("Overview", "Account");
         }
 
-        // PUT: Account/Edit/5
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
-        public ActionResult EditAccount(Account account)
-        {
+        /// <summary>
+        ///     This method update an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview page of account.</returns>
+        [HttpPost]
+        public ActionResult EditAccount(Account account) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            Account accountDB = context.Account.Where(a => a.userId == account.userId).FirstOrDefault();
+            accountDB.username = account.username;
+            accountDB.name = account.name;
+            accountDB.roleId = int.Parse(Request.Form["Role"]);
+            context.SaveChanges();
             return RedirectToAction("Overview", "Account");
         }
 
-        // DEL: Account/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View("Overview");
-        }
-
+        /// <summary>
+        ///     This method is for resetting the password of a account.
+        /// </summary>
+        /// <param name="currentAccount">Account object</param>
+        /// <returns>Redirect to Reset page of account or if it succeeds to ResettedPassword</returns>
         [HttpPost]
-        // POST: Account/Reset
-        public ActionResult ResetAccount(Account currentAccount)
-        {
-            string newPassword; // = "testrggr";
+        public ActionResult ResetAccount(Account currentAccount) {
+            string newPassword;
 
-            var context = new PlanningSysteemEntities();
-            if (context.Account.Any(a => a.username == currentAccount.username))
-            {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            if (context.Account.Any(a => a.username == currentAccount.username)) {
                 const string Chars = "ABCDEFGHIJKLMNPOQRSTUVWXYZ0123456789";
-                var random = new System.Random();
-                var result = new string(
+                Random random = new Random();
+                string result = new string(
                     Enumerable.Repeat(Chars, 8)
                         .Select(s => s[random.Next(s.Length)])
                         .ToArray());
                 newPassword = result;
 
-                using (context)
-                {
-                    Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username).FirstOrDefault();
+                using (context) {
+                    Account accountCurrent = context.Account.Where(a => a.username == currentAccount.username)
+                        .FirstOrDefault();
                     accountCurrent.password = result;
                     accountCurrent.isResetted = true;
                     context.SaveChanges();
                 }
-                return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
-            }
-            else {
-                newPassword = "Deze gebruiker bestaat niet";
-                return RedirectToAction("Reset", "Account");
 
+                return RedirectToAction("resettedpassword", "Account", new {password = newPassword});
             }
+
+            newPassword = "Deze gebruiker bestaat niet";
+            return RedirectToAction("Reset", "Account");
         }
 
-        public ActionResult resettedpassword(string password)
-        {
-            Models.Account account = new Models.Account();
-            ViewData["password"] = password;
-            return View(account);
+        /// <summary>
+        ///     THis method is to disable(soft delete) an account.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns>Redirect to Overview Page</returns>
+        [HttpPost]
+        public ActionResult DeleteAccount(Models.Account account) {
+            if (account.userId != null) {
+                PlanningSysteemEntities context = new PlanningSysteemEntities();
+                Account accountDB = context.Account.Where(a => a.userId == account.userId).FirstOrDefault();
+                accountDB.isDisabled = true;
+                context.SaveChanges();
+                return RedirectToAction("Overview", "Account");
+            }
+
+            return RedirectToAction("Overview", "Account");
         }
     }
+
+    #endregion
 }

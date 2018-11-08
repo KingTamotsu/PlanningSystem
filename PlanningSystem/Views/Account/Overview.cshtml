@@ -1,6 +1,4 @@
-﻿@using PlanningSystem.Models
-
-@model List<PlanningSystem.Models.Account>
+﻿@model List<PlanningSystem.Models.Account>
 @{
     ViewBag.Title = "Overview";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +10,7 @@
     </div>
     <div class="col-md-6 text-center">
         <span class="pull-right">
-            @Html.ActionLink("Toevoegen", "Create", "Account", new { @class= "btn btn-success" })
+            @Html.ActionLink("Toevoegen", "Create", "Account", new { @class = "btn btn-success" })
         </span>
     </div>
 </div>
@@ -38,12 +36,15 @@
                 <td>@i.name</td>
                 <td>@i.role.roleName</td>
                 <td>@i.createdAt</td>
-
                 <td>
-                    <button type="button" class="btn btn-primary">Wijzigen</button>
-                    <button type="button" class="btn btn-danger">Verwijderen</button>
+                    @Html.ActionLink("Wijzigen", "Edit", "Account", i, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Verwijderen", "Delete", "Account", i, new { @class = "btn btn-danger" })
+                    
                 </td>
             </tr>
         </tbody>
     }
 </table>
+
+
+

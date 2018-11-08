@@ -1,56 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-
-namespace PlanningSystem.Controllers
-{
-    public class UnavailabilityController : Controller
-    {
-        public ActionResult Formulier()
-        {
+namespace PlanningSystem.Controllers {
+    public class UnavailabilityController : Controller {
+        public ActionResult Formulier() {
             ViewBag.Message = "Geef hier onbeschikbaarheid op.";
 
             return View();
         }
-        public ViewResult Respons(DateTime date, string startTijdUur, string startTijdMinuten, string eindTijdUur, string eindTijdMinuten, string reden)
-        {
-            var context = new PlanningSysteemEntities();
-            var newUnavailability = new Unavailability();
+
+        public ViewResult Respons(DateTime date, string startTijdUur, string startTijdMinuten, string eindTijdUur,
+            string eindTijdMinuten, string reden) {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            Unavailability newUnavailability = new Unavailability();
             newUnavailability.UnavailabilityCause = reden;
-            newUnavailability.UnavailabilityStartTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt16(startTijdUur), Convert.ToInt16(startTijdMinuten), 0);
-            newUnavailability.UnavailabilityEndTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt16(eindTijdUur), Convert.ToInt16(eindTijdMinuten), 0);
+            newUnavailability.UnavailabilityStartTime = new DateTime(date.Year, date.Month, date.Day,
+                Convert.ToInt16(startTijdUur), Convert.ToInt16(startTijdMinuten), 0);
+            newUnavailability.UnavailabilityEndTime = new DateTime(date.Year, date.Month, date.Day,
+                Convert.ToInt16(eindTijdUur), Convert.ToInt16(eindTijdMinuten), 0);
             newUnavailability.userID = 3;
             context.Unavailability.Add(newUnavailability);
-            var addedUnavailability = new Models.Unavailability
-            {
+            Models.Unavailability addedUnavailability = new Models.Unavailability {
                 UnavailabilityStartTime = newUnavailability.UnavailabilityStartTime,
                 UnavailabilityEndTime = newUnavailability.UnavailabilityEndTime,
                 UnavailabilityCause = newUnavailability.UnavailabilityCause
             };
-            try
-            {
+            try {
                 context.SaveChanges();
                 addedUnavailability.UnavailabilityCause = "Uploaden gelukt";
                 return View(addedUnavailability);
             }
-            catch (System.Data.Entity.Core.EntityException)
-            {
+            catch (EntityException) {
                 context.Unavailability.Remove(newUnavailability);
                 addedUnavailability.UnavailabilityCause = "Uploaden gefaald";
 
                 return View(addedUnavailability);
-
             }
-
-
-
         }
 
-        public ViewResult Inzien()
-        {
+        public ViewResult Inzien() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             DateTime monday = new DateTime(2018, 11, 5, 9, 0, 0);
 
@@ -66,27 +57,25 @@ namespace PlanningSystem.Controllers
             List<Models.Unavailability> fridayUnavailabilities = new List<Models.Unavailability>();
             totalList.Add(fridayUnavailabilities);
             int i = 0;
-            foreach (List<Models.Unavailability> subday in totalList)
-            {
+            foreach (List<Models.Unavailability> subday in totalList) {
                 DateTime dayoftheweek = monday.AddDays(i);
                 List<Unavailability> tempList = context.Unavailability.Where(a =>
-                    (a.UnavailabilityStartTime.Day == dayoftheweek.Day) &&
-                    (a.UnavailabilityStartTime.Month == dayoftheweek.Month) &&
-                    (a.UnavailabilityStartTime.Year == dayoftheweek.Year) &&
-                    (a.userID == 3))
+                        a.UnavailabilityStartTime.Day == dayoftheweek.Day &&
+                        a.UnavailabilityStartTime.Month == dayoftheweek.Month &&
+                        a.UnavailabilityStartTime.Year == dayoftheweek.Year &&
+                        a.userID == 3)
                     .ToList();
-                foreach (Unavailability u in tempList)
-                {
-                    Models.Unavailability unavailability = new Models.Unavailability()
-                    {
+                foreach (Unavailability u in tempList) {
+                    Models.Unavailability unavailability = new Models.Unavailability {
                         UnavailabilityCause = u.UnavailabilityCause,
                         UnavailabilityStartTime = u.UnavailabilityStartTime,
                         UnavailabilityEndTime = u.UnavailabilityEndTime,
                         UnavailabilityID = u.UnavailabilityID,
-                        userID = 3,
+                        userID = 3
                     };
                     subday.Add(unavailability);
                 }
+
                 i++;
                 subday.Sort((a, b) => a.UnavailabilityStartTime.CompareTo(b.UnavailabilityStartTime));
             }
@@ -95,4 +84,3 @@ namespace PlanningSystem.Controllers
         }
     }
 }
-

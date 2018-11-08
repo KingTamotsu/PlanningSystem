@@ -1,0 +1,16 @@
+﻿@model PlanningSystem.Models.Account
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Weet je zeker dat je het account @Model.name wilt verwijderen?</h2>
+
+@using (Html.BeginForm("DeleteAccount", "Account", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.userId)
+    </div>
+    <button type="submit" class="btn btn-danger">Verwijderen</button>
+}

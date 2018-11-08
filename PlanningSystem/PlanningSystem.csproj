@@ -269,7 +269,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
-    <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Overview.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
@@ -284,6 +283,8 @@
     <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Schedule\Schedule.cshtml" />
     <Content Include="Views\Unavailability\Inzien.cshtml" />
+    <Content Include="Views\Schedule\CreateClassroom.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
