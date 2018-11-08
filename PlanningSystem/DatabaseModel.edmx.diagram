@@ -6,12 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="1ccb4a8d68f3496ebc046e9f438420b3" Name="Diagram1">
         <EntityTypeShape EntityType="PlanningSysteemModel.Account" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="PlanningSysteemModel.Classroom" Width="1.5" PointX="6" PointY="7.125" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.Classroom" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Course" Width="1.5" PointX="0.75" PointY="3.5" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Role" Width="1.5" PointX="0.75" PointY="0.875" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Schedule" Width="1.5" PointX="8.25" PointY="2.875" />
-        <EntityTypeShape EntityType="PlanningSysteemModel.StudentClass" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.StudentClass" Width="1.5" PointX="6" PointY="7.125" />
         <EntityTypeShape EntityType="PlanningSysteemModel.Unavailability" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.DaysOfTheWeek" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.Months" Width="1.5" PointX="2.75" PointY="8" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.SchoolWeekNumber" Width="1.5" PointX="8.75" PointY="8" />
+        <EntityTypeShape EntityType="PlanningSysteemModel.SchoolYears" Width="1.5" PointX="0.75" PointY="10" />
         <AssociationConnector Association="PlanningSysteemModel.FK_Account_Course" />
         <AssociationConnector Association="PlanningSysteemModel.FK_Account_Role" />
         <AssociationConnector Association="PlanningSysteemModel.FK_Schedule_Account" />
