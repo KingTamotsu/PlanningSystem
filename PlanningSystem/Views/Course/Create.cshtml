@@ -24,6 +24,15 @@
         @Html.LabelFor(m => m.lectures)
         @Html.TextBoxFor(m => m.lectures, new { @class = "form-control" })
     </div>
+    <div class="form-group">
+        
+        <select asp-for="Naam" asp-items="accounts.name">
+            <option value="">Kies een docent</option>
+            <option value=ViewData[ListItems]></option>
+            
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }
 

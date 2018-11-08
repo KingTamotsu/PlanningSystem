@@ -21,12 +21,14 @@ namespace PlanningSystem.Controllers
 
             foreach (Course i in courses)
             {
+                Models.Account account = new Models.Account();
                 Models.Course course = new Models.Course()
                 {
                     courseId = i.courseId,
                     courseCode = i.courseCode,
                     courseName = i.courseName,
                     description = i.description,
+                    teacher = account.name
                 };
                 allCourses.Add(course);
             }
@@ -54,6 +56,7 @@ namespace PlanningSystem.Controllers
                     context.SaveChanges();
                     return RedirectToAction("Overview", "Course");
                 }
+                ViewData["ListItems"] = context;
             }
             catch (RetryLimitExceededException /* dex */)
             {
@@ -154,5 +157,15 @@ namespace PlanningSystem.Controllers
 
         //    context.SaveChanges();
         //    return RedirectToAction("Disable", "Course");
+
+        //public ActionResult LinkTeacher()
+        //{
+
+        //}
+
+        public ActionResult LinkTeacher()
+        {
+            return RedirectToAction("Overview", "Course");
+        }
     }
  }
