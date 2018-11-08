@@ -11,7 +11,7 @@ namespace PlanningSystem.Models {
         //public string ClassID { get; set; }
         //public int userId { get; set; }
         //public int courseId { get; set; }
-        public string ClassroomID { get; set; }
+        //public string ClassroomID { get; set; }
         //public DateTime DayDate { get; set; }
         public DateTime DateStartTime { get; set; }
         public DateTime DateEndTime { get; set; }
@@ -22,6 +22,7 @@ namespace PlanningSystem.Models {
         public DaysOfTheWeek day { get; set; }
         public Account user { get; set; }
         public Course course { get; set; }
+        public Classroom classroomname { get; set; }
         //public List<Schedule> AllClasses { get; set; }
     }
 }

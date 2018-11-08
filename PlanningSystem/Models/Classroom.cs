@@ -1,6 +1,15 @@
-﻿namespace PlanningSystem.Models {
-    public class Classroom {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel;
+using System.Web.Mvc;
+
+namespace PlanningSystem.Models
+{
+	public class Classroom
+	{
         public string ClassroomID { get; set; }
-        public int Capacity { get; set; }
+        public IEnumerable<SelectListItem> AllClassrooms { get; set; }
     }
 }

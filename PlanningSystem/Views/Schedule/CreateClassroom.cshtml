@@ -25,6 +25,8 @@
     @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsTeachers"])
     @Html.LabelFor(i => i.course.courseId)
     @Html.DropDownList("Courses", (IEnumerable<SelectListItem>)ViewData["ListItemsCourses"])
+    @Html.LabelFor(i => i.classroomname.ClassroomID)
+    @Html.DropDownList("Classrooms", (IEnumerable<SelectListItem>)ViewData["ListItemsClassrooms"])
 </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }

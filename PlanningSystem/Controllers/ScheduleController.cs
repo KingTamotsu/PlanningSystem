@@ -94,6 +94,16 @@ namespace PlanningSystem.Controllers {
                 });
             ViewData["ListItemsCourses"] = items7;
 
+            List<Classroom> AllClassrooms = context.Classroom.ToList();
+            List<SelectListItem> items8 = new List<SelectListItem>();
+            foreach (Classroom classrooms in AllClassrooms)
+                items8.Add(new SelectListItem
+                {
+                    Text = classrooms.ClassroomID.ToString(),
+                    Value = classrooms.ClassroomID.ToString()
+                });
+            ViewData["ListItemsClassrooms"] = items8;
+
             return View();
 
             //return View(AllClasses);
@@ -111,12 +121,13 @@ namespace PlanningSystem.Controllers {
                 Day = Request.Form["StudentDay"],
                 userId = int.Parse(Request.Form["Teachers"]),
                 courseId = int.Parse(Request.Form["Courses"]),
+                ClassroomID = Request.Form["Classrooms"],
                 //userId = 3, //sched.userId,
 
 
 
                 //DayDate = "2018, 9, 10, 9, 0, 0",
-                ClassroomID = "loka1",
+                //ClassroomID = "loka1",
                 //username = account.username,
                 //password = account.password,
                 ClassID = Request.Form["StudentClass"]
