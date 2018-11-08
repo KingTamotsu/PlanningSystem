@@ -9,6 +9,7 @@ namespace PlanningSystem.Models
 {
     public class SchoolYears
     {
+        [DisplayName("Schooljaar")]
         public string SchoolYear { get; set; }
         public IEnumerable<SelectListItem> AllYears { get; set; }
     }

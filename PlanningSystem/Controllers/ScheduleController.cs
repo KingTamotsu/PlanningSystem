@@ -58,7 +58,8 @@ namespace PlanningSystem.Controllers {
         public ActionResult CreateScheduleClassroom(Models.Schedule sched) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             Schedule newSchedule = new Schedule {
-                Schoolyear = "18/19",
+                //Schoolyear = "18/19",
+                SchoolYear = Request.Form["StudentYear"],
                 Month = "Januari",
                 SchoolweekNumber = 22,
                 Day = "Ma",

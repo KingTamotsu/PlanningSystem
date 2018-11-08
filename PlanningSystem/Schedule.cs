@@ -15,7 +15,7 @@ namespace PlanningSystem
     public partial class Schedule
     {
         public int ID { get; set; }
-        public string Schoolyear { get; set; }
+        public string SchoolYear { get; set; }
         public string Month { get; set; }
         public int SchoolweekNumber { get; set; }
         public string Day { get; set; }
