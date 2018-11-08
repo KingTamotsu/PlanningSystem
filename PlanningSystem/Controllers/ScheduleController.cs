@@ -5,23 +5,7 @@ using System.Web.Mvc;
 namespace PlanningSystem.Controllers {
     public class ScheduleController : Controller {
         // GET: Schedule
-        public ActionResult CreateClassroom() {
-            //PlanningSysteemEntities context = new PlanningSysteemEntities();
-            //List<Models.Schedule> CreateSchedule = new List<Models.Schedule>();
-            //List<Schedule> schedule = context.Account.Where(a => a.isDisabled == false).ToList(); // list classnaam listnaam voorwaarde en ophalen
-
-            //var context = new PlanningSysteemEntities();
-            //List<Models.StudentClass> AllClasses = new List<Models.StudentClass>();
-            //var studentclasses = context.StudentClass.ToList();
-
-            //foreach (StudentClass i in studentclasses)
-            //{
-            //Models.StudentClass studentclass = new Models.StudentClass()
-            //{
-            //ClassID = i.ClassID
-            //};
-            //AllClasses.Add(studentclass);
-            //}
+        public ActionResult CreateSchedule() {
 
 
             PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -79,8 +63,8 @@ namespace PlanningSystem.Controllers {
             foreach (Account users in AllUsers)
                 items6.Add(new SelectListItem
                 {
-                    Text = users.userId.ToString(),
-                    Value = users.userId.ToString()
+                    Text = users.name,
+                    Value = users.name
                 });
             ViewData["ListItemsTeachers"] = items6;
 
@@ -89,8 +73,8 @@ namespace PlanningSystem.Controllers {
             foreach (Course courses in AllCourses)
                 items7.Add(new SelectListItem
                 {
-                    Text = courses.courseId.ToString(),
-                    Value = courses.courseId.ToString()
+                    Text = courses.courseName,
+                    Value = courses.courseName
                 });
             ViewData["ListItemsCourses"] = items7;
 
@@ -119,8 +103,8 @@ namespace PlanningSystem.Controllers {
                 Month = Request.Form["StudentMonth"],
                 SchoolWeekNumber = int.Parse(Request.Form["StudentWeek"]),
                 Day = Request.Form["StudentDay"],
-                userId = int.Parse(Request.Form["Teachers"]),
-                courseId = int.Parse(Request.Form["Courses"]),
+                Teacher = (Request.Form["Teachers"]),
+                courseName = (Request.Form["Courses"]),
                 ClassroomID = Request.Form["Classrooms"],
                 //userId = 3, //sched.userId,
 
