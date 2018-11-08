@@ -5,6 +5,7 @@ using System.Web.Mvc;
 namespace PlanningSystem.Controllers {
     public class ScheduleController : Controller {
         // GET: Schedule
+
         public ActionResult CreateSchedule() {
 
 
@@ -90,7 +91,10 @@ namespace PlanningSystem.Controllers {
 
             return View();
 
-            //return View(AllClasses);
+        }
+        public ActionResult ScheduleConfirmed()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -98,7 +102,6 @@ namespace PlanningSystem.Controllers {
         public ActionResult CreateScheduleClassroom(Models.Schedule sched) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             Schedule newSchedule = new Schedule {
-                //Schoolyear = "18/19",
                 SchoolYear = Request.Form["StudentYear"],
                 Month = Request.Form["StudentMonth"],
                 SchoolWeekNumber = int.Parse(Request.Form["StudentWeek"]),
@@ -106,23 +109,12 @@ namespace PlanningSystem.Controllers {
                 Teacher = (Request.Form["Teachers"]),
                 courseName = (Request.Form["Courses"]),
                 ClassroomID = Request.Form["Classrooms"],
-                //userId = 3, //sched.userId,
-
-
-
-                //DayDate = "2018, 9, 10, 9, 0, 0",
-                //ClassroomID = "loka1",
-                //username = account.username,
-                //password = account.password,
                 ClassID = Request.Form["StudentClass"]
-                //firstLogin = account.firstLogin = true,
-                //isResetted = account.isResetted = false,
-                //createdAt = account.createdAt = DateTime.Now,
-                //isDisabled = account.isDisabled = false
             };
             context.Schedule.Add(newSchedule);
             context.SaveChanges();
-            return RedirectToAction("CreateSchedule", "Schedule");
+            return RedirectToAction("ScheduleConfirmed", "Schedule");
+
         }
     }
 }
