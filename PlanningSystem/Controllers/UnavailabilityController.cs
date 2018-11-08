@@ -43,7 +43,8 @@ namespace PlanningSystem.Controllers {
 
         public ViewResult Inzien() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
-            DateTime monday = new DateTime(2018, 11, 5, 9, 0, 0);
+            DateTime startDay = new DateTime(2018, 9, 10, 9, 0, 0);
+            DateTime monday = startDay.AddDays(7*(week-1));
 
             List<List<Models.Unavailability>> totalList = new List<List<Models.Unavailability>>();
             List<Models.Unavailability> mondayUnavailabilities = new List<Models.Unavailability>();

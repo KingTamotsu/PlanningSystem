@@ -9,36 +9,36 @@
 <form action="Respons" method="post">
     Dag:
     <input type="date" name="date" required><br>
-    <input type="checkbox" name="heleDag" id="heleDag" value="heleDag" unchecked onchange="myFunction()"> Hele dag<br>
+    <input type="checkbox" name="wholeDay" id="wholeDay" value="wholeDay" unchecked onchange="myFunction()">Hele dag<br>
     <script>
         function myFunction() {
-            var checkBox = document.getElementById("heleDag");
+            var checkBox = document.getElementById("wholeDay");
             if (checkBox.checked == true) {
-                document.getElementById("startTijdUur").hidden = true;
-                document.getElementById("startTijdUur").value = "9";
-                document.getElementById("startTijdMinuten").hidden = true;
-                document.getElementById("startTijdMinuten").value = "00";
-                document.getElementById("eindTijdUur").hidden = true;
-                document.getElementById("eindTijdUur").value = "18";
-                document.getElementById("eindTijdMinuten").hidden = true;
-                document.getElementById("eindTijdMinuten").value = "00";
-                document.getElementById("startTijdLabel").hidden = true;
-                document.getElementById("eindTijdLabel").hidden = true;
+                document.getElementById("startTimeHour").hidden = true;
+                document.getElementById("startTimeHour").value = "9";
+                document.getElementById("startTimeMinutes").hidden = true;
+                document.getElementById("startTimeMinutes").value = "00";
+                document.getElementById("endTimeHour").hidden = true;
+                document.getElementById("endTimeHour").value = "18";
+                document.getElementById("endTimeMinutes").hidden = true;
+                document.getElementById("endTimeMinutes").value = "00";
+                document.getElementById("startTimeLabel").hidden = true;
+                document.getElementById("endTimeLabel").hidden = true;
             }
             else
             {
-                document.getElementById("startTijdUur").hidden = false;
-                document.getElementById("startTijdMinuten").hidden = false;
-                document.getElementById("eindTijdUur").hidden = false;
-                document.getElementById("eindTijdMinuten").hidden = false;
-                document.getElementById("startTijdLabel").hidden = false;
-                document.getElementById("eindTijdLabel").hidden = false;
+                document.getElementById("startTimeHour").hidden = false;
+                document.getElementById("startTimeMinutes").hidden = false;
+                document.getElementById("endTimeHour").hidden = false;
+                document.getElementById("endTimeMinutes").hidden = false;
+                document.getElementById("startTimeLabel").hidden = false;
+                document.getElementById("endTimeLabel").hidden = false;
             }
         }
     </script>
 
-    <label id="startTijdLabel">Starttijd:</label>
-    <select name="startTijdUur" id="startTijdUur">
+    <label id="startTimeLabel">Starttijd:</label>
+    <select name="startTimeHour" id="startTimeHour">
         <option value="9">9</option>
         <option value="10">10</option>
         <option value="11">11</option>
@@ -50,13 +50,13 @@
         <option value="17">17</option>
         <option value="18">18</option>
     </select>
-    <select name="startTijdMinuten" id="startTijdMinuten">
+    <select name="startTimeMinutes" id="startTimeMinutes">
         <option value="00">00</option>
         <option value="30">30</option>
     </select>
     <br>
-    <label id="eindTijdLabel">Eindtijd:</label>
-    <select name="eindTijdUur" id="eindTijdUur">
+    <label id="endTimeLabel">Eindtijd:</label>
+    <select name="endTimeHour" id="endTimeHour">
         <option value="9">9</option>
         <option value="10">10</option>
         <option value="11">11</option>
@@ -68,16 +68,17 @@
         <option value="17">17</option>
         <option value="18">18</option>
     </select>
-    <select name="eindTijdMinuten" id="eindTijdMinuten">
+    <select name="endTimeMinutes" id="endTimeMinutes">
         <option value="00">00</option>
         <option value="30">30</option>
     </select>
     <br>
     <label>Reden:</label>
-    <select name="reden">
-        <option value="verlof">Verlof</option>
-        <option value="reden 2">Reden 2</option>
-        <option value="reden 3">Reden 3</option>
+    <select name="cause">
+        <option value="Verlof">Verlof</option>
+        <option value="Dokter">Dokter</option>
+        <option value="ATV">ATV</option>
+        <option value="Overig">Overig</option>
     </select><br>
     <input type="submit" value="Verzenden">
 </form>
