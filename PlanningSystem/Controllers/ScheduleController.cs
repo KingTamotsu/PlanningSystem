@@ -44,12 +44,17 @@ namespace PlanningSystem.Controllers {
         public ActionResult CreateScheduleClassroom(Models.Schedule sched) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             Schedule newSchedule = new Schedule {
-                userId = 3, //sched.userId,
-                courseId = 1,
-                SchoolweekNumber = 22,
                 Schoolyear = "18/19",
+                Month = "Januari",
+                SchoolweekNumber = 22,
+                Day = "Ma",
+                courseId = 1,
+                userId = 3, //sched.userId,
+                
+
+                
                 //DayDate = "2018, 9, 10, 9, 0, 0",
-                ClassroomID = "test1",
+                ClassroomID = "loka1",
                 //username = account.username,
                 //password = account.password,
                 ClassID = Request.Form["StudentClass"]

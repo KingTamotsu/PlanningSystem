@@ -28,13 +28,13 @@ namespace PlanningSystem
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Classroom> Classroom { get; set; }
         public virtual DbSet<Course> Course { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Schedule> Schedule { get; set; }
-        public virtual DbSet<StudentClass> StudentClass { get; set; }
-        public virtual DbSet<Unavailability> Unavailability { get; set; }
         public virtual DbSet<DaysOfTheWeek> DaysOfTheWeek { get; set; }
         public virtual DbSet<Months> Months { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<SchoolWeekNumber> SchoolWeekNumber { get; set; }
         public virtual DbSet<SchoolYears> SchoolYears { get; set; }
+        public virtual DbSet<StudentClass> StudentClass { get; set; }
+        public virtual DbSet<Unavailability> Unavailability { get; set; }
     }
 }

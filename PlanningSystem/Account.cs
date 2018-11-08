@@ -19,6 +19,7 @@ namespace PlanningSystem
         {
             this.Schedule = new HashSet<Schedule>();
             this.Unavailability = new HashSet<Unavailability>();
+            this.Course = new HashSet<Course>();
         }
     
         public int userId { get; set; }
@@ -29,14 +30,14 @@ namespace PlanningSystem
         public System.DateTime createdAt { get; set; }
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
-        public Nullable<int> courseId { get; set; }
         public bool isDisabled { get; set; }
     
-        public virtual Course Course { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Unavailability> Unavailability { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Course> Course { get; set; }
     }
 }
