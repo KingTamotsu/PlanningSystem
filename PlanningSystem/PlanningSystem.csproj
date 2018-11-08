@@ -197,6 +197,7 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Classroom.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Months.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\SchoolYears.cs" />

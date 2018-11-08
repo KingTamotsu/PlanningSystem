@@ -17,6 +17,7 @@ namespace PlanningSystem.Models {
         public DateTime DateEndTime { get; set; }
         public StudentClass ClassName { get; set; }
         public SchoolYears year { get; set; }
+        public Months month { get; set; }
         public List<Schedule> AllClasses { get; set; }
     }
 }

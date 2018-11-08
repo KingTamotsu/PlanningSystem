@@ -181,6 +181,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Schedule_Months">
+          <End Role="Months" Type="Self.Months" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months">
+              <PropertyRef Name="Month" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Month" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Schedule_SchoolYears">
           <End Role="SchoolYears" Type="Self.SchoolYears" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -254,6 +266,10 @@
             <End Role="Course" EntitySet="Course" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Months" Association="Self.FK_Schedule_Months">
+            <End Role="Months" EntitySet="Months" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Schedule_SchoolYears" Association="Self.FK_Schedule_SchoolYears">
             <End Role="SchoolYears" EntitySet="SchoolYears" />
             <End Role="Schedule" EntitySet="Schedule" />
@@ -301,6 +317,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_Course" Association="PlanningSysteemModel.FK_Schedule_Course">
             <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Months" Association="PlanningSysteemModel.FK_Schedule_Months">
+            <End Role="Months" EntitySet="Months" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_SchoolYears" Association="PlanningSysteemModel.FK_Schedule_SchoolYears">
@@ -366,6 +386,7 @@
             <PropertyRef Name="Month" />
           </Key>
           <Property Name="Month" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_Months" FromRole="Months" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -393,6 +414,7 @@
           <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.FK_Schedule_Account" FromRole="Schedule" ToRole="Account" />
           <NavigationProperty Name="Classroom" Relationship="PlanningSysteemModel.FK_Schedule_Classroom" FromRole="Schedule" ToRole="Classroom" />
           <NavigationProperty Name="Course" Relationship="PlanningSysteemModel.FK_Schedule_Course" FromRole="Schedule" ToRole="Course" />
+          <NavigationProperty Name="Months" Relationship="PlanningSysteemModel.FK_Schedule_Months" FromRole="Schedule" ToRole="Months" />
           <NavigationProperty Name="SchoolYears" Relationship="PlanningSysteemModel.FK_Schedule_SchoolYears" FromRole="Schedule" ToRole="SchoolYears" />
           <NavigationProperty Name="StudentClass" Relationship="PlanningSysteemModel.FK_Schedule_StudentClass" FromRole="Schedule" ToRole="StudentClass" />
         </EntityType>
@@ -485,6 +507,18 @@
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Months">
+          <End Type="PlanningSysteemModel.Months" Role="Months" Multiplicity="1" />
+          <End Type="PlanningSysteemModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months">
+              <PropertyRef Name="Month" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Month" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

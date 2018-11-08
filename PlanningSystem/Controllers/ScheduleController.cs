@@ -32,11 +32,8 @@ namespace PlanningSystem.Controllers {
                     Text = Classes.ClassID,
                     Value = Classes.ClassID
                 });
-            //ViewData["ListItemsStudentClasses"] = items;
-            //return View();
             ViewData["ListItemsStudentClasses"] = items;
 
-            //PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<SchoolYears> AllYears = context.SchoolYears.ToList();
             List<SelectListItem> items2 = new List<SelectListItem>();
             foreach (SchoolYears years in AllYears)
@@ -46,8 +43,17 @@ namespace PlanningSystem.Controllers {
                     Value = years.SchoolYear
                 });
             ViewData["ListItemsYears"] = items2;
-            //return View();
-            
+
+            List<Months> AllMonths = context.Months.ToList();
+            List<SelectListItem> items3 = new List<SelectListItem>();
+            foreach (Months months in AllMonths)
+                items3.Add(new SelectListItem
+                {
+                    Text = months.Month,
+                    Value = months.Month
+                });
+            ViewData["ListItemsMonths"] = items3;
+
             return View();
 
             //return View(AllClasses);
@@ -60,7 +66,7 @@ namespace PlanningSystem.Controllers {
             Schedule newSchedule = new Schedule {
                 //Schoolyear = "18/19",
                 SchoolYear = Request.Form["StudentYear"],
-                Month = "Januari",
+                Month = Request.Form["StudentMonth"],
                 SchoolweekNumber = 22,
                 Day = "Ma",
                 courseId = 1,
