@@ -74,6 +74,16 @@ namespace PlanningSystem.Controllers {
                 });
             ViewData["ListItemsDays"] = items5;
 
+            List<Account> AllUsers = context.Account.ToList();
+            List<SelectListItem> items6 = new List<SelectListItem>();
+            foreach (Account users in AllUsers)
+                items6.Add(new SelectListItem
+                {
+                    Text = users.userId.ToString(),
+                    Value = users.userId.ToString()
+                });
+            ViewData["ListItemsTeachers"] = items6;
+
             return View();
 
             //return View(AllClasses);
@@ -89,8 +99,9 @@ namespace PlanningSystem.Controllers {
                 Month = Request.Form["StudentMonth"],
                 SchoolWeekNumber = int.Parse(Request.Form["StudentWeek"]),
                 Day = Request.Form["StudentDay"],
+                userId = int.Parse(Request.Form["Teachers"]),
                 courseId = 1,
-                userId = 3, //sched.userId,
+                //userId = 3, //sched.userId,
                 
 
                 

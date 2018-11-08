@@ -19,8 +19,10 @@
     @Html.DropDownList("StudentMonth", (IEnumerable<SelectListItem>)ViewData["ListItemsMonths"])
     @Html.LabelFor(i => i.schoolweek.NumberOfTheWeek)
     @Html.DropDownList("StudentWeek", (IEnumerable<SelectListItem>)ViewData["ListItemsWeeks"])
-    @Html.LabelFor(i => i.dayy.Day)
+    @Html.LabelFor(i => i.day.Day)
     @Html.DropDownList("StudentDay", (IEnumerable<SelectListItem>)ViewData["ListItemsDays"])
+    @Html.LabelFor(i => i.user.userId)
+    @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsteachers"])
 </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }
