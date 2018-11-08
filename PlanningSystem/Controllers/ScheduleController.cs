@@ -32,9 +32,23 @@ namespace PlanningSystem.Controllers {
                     Text = Classes.ClassID,
                     Value = Classes.ClassID
                 });
+            //ViewData["ListItemsStudentClasses"] = items;
+            //return View();
             ViewData["ListItemsStudentClasses"] = items;
-            return View();
 
+            //PlanningSysteemEntities context = new PlanningSysteemEntities();
+            List<SchoolYears> AllYears = context.SchoolYears.ToList();
+            List<SelectListItem> items2 = new List<SelectListItem>();
+            foreach (SchoolYears years in AllYears)
+                items2.Add(new SelectListItem
+                {
+                    Text = years.SchoolYear,
+                    Value = years.SchoolYear
+                });
+            ViewData["ListItemsYears"] = items2;
+            //return View();
+            
+            return View();
 
             //return View(AllClasses);
         }

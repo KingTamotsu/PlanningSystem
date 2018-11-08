@@ -10,11 +10,12 @@
 
 @using (Html.BeginForm("CreateScheduleClassroom", "Schedule"))
 {
-    <div class="form-group">
-        @Html.LabelFor(i => i.ClassName.ClassID)
-
-        @Html.DropDownList("StudentClass", (IEnumerable<SelectListItem>)ViewData["ListItemsStudentClasses"])
-    </div>
+<div class="form-group">
+    @Html.LabelFor(i => i.ClassName.ClassID)
+    @Html.DropDownList("StudentClass", (IEnumerable<SelectListItem>)ViewData["ListItemsStudentClasses"])
+    @Html.LabelFor(i => i.year.SchoolYear)
+    @Html.DropDownList("StudentClass", (IEnumerable<SelectListItem>)ViewData["ListItemsStudentClasses"])
+</div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 }
 

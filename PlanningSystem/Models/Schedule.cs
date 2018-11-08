@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace PlanningSystem.Models {
     public class Schedule {
         public int ID { get; set; }
-        public string Schoolyear { get; set; }
+        //public string Schoolyear { get; set; }
         public string Month { get; set; }
         public int SchoolweekNumber { get; set; }
         public string day { get; set; }
@@ -16,6 +16,7 @@ namespace PlanningSystem.Models {
         public DateTime DateStartTime { get; set; }
         public DateTime DateEndTime { get; set; }
         public StudentClass ClassName { get; set; }
-        //public List<Schedule> AllClasses { get; set; }
+        public SchoolYears year { get; set; }
+        public List<Schedule> AllClasses { get; set; }
     }
 }
