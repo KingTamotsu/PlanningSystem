@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace PlanningSystem.Models
 {
-	public class Classroom
-	{
-        public string ClassroomID { get; set; }
-        public IEnumerable<SelectListItem> AllClassrooms { get; set; }
+    public class Months
+    {
+        [DisplayName("Maand")]
+        public string Month { get; set; }
+        public IEnumerable<SelectListItem> AllMonths { get; set; }
     }
 }

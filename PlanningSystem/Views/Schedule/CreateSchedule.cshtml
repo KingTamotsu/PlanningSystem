@@ -1,0 +1,43 @@
+﻿@model PlanningSystem.Models.Schedule
+@{
+    ViewBag.Title = "CreateSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Roostermakerij magic</h2>
+
+<br />
+<br />
+
+@using (Html.BeginForm("CreateScheduleClassroom", "Schedule"))
+{
+    <div class="form-group">
+        @Html.LabelFor(i => i.ClassName.ClassID)
+        @Html.DropDownList("StudentClass", (IEnumerable<SelectListItem>)ViewData["ListItemsStudentClasses"])
+        <br />
+        @Html.LabelFor(i => i.year.SchoolYear)
+        @Html.DropDownList("StudentYear", (IEnumerable<SelectListItem>)ViewData["ListItemsYears"])
+        <br />
+        @Html.LabelFor(i => i.month.Month)
+        @Html.DropDownList("StudentMonth", (IEnumerable<SelectListItem>)ViewData["ListItemsMonths"])
+        <br />
+        @Html.LabelFor(i => i.schoolweek.NumberOfTheWeek)
+        @Html.DropDownList("StudentWeek", (IEnumerable<SelectListItem>)ViewData["ListItemsWeeks"])
+        <br />
+        @Html.LabelFor(i => i.day.Day)
+        @Html.DropDownList("StudentDay", (IEnumerable<SelectListItem>)ViewData["ListItemsDays"])
+        <br />
+        @Html.LabelFor(i => i.user.name)
+        @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsTeachers"])
+        <br />
+        @Html.LabelFor(i => i.course.courseName)
+        @Html.DropDownList("Courses", (IEnumerable<SelectListItem>)ViewData["ListItemsCourses"])
+        <br />
+        @Html.LabelFor(i => i.classroomname.ClassroomID)
+        @Html.DropDownList("Classrooms", (IEnumerable<SelectListItem>)ViewData["ListItemsClassrooms"])
+        <br />
+        <br />
+    </div>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
+}
+

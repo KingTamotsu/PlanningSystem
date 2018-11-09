@@ -12,8 +12,8 @@
 {
     if (!weekday.Any())
     {
-        <select name="selectie" size="17" disabled>
-            @for (int i = 0; i < 17; i++)
+        <select name="selectie" size="18" disabled>
+            @for (int i = 0; i < 18; i++)
             {
                 <option value="">-</option>
             }
@@ -22,24 +22,17 @@
     }
     else
     {
-        int currentHour = 8;
-        int currentMinute = 30;
+        int currentHour = 9;
+        int currentMinute = 00;
 
-        <select name="selectie" size="17">
+        <select name="selectie" size="18">
             @foreach (var u in weekday)
             {
                 bool notDone = true;
                 bool fillRest = false;
-                while (notDone)
+                while (notDone && currentHour != 18)
                 {
-                    if (currentMinute == 00)
-                    {
-                        currentMinute = 30;
-                    }
-                    else
-                    {
-                        currentMinute = 00;
-                        currentHour++;
+
                     if (currentHour == u.UnavailabilityStartTime.Hour && currentMinute == u.UnavailabilityStartTime.Minute)
                     {
                         <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
@@ -47,7 +40,7 @@
                     }
                     else if (currentHour == u.UnavailabilityEndTime.Hour && currentMinute == u.UnavailabilityEndTime.Minute)
                     {
-                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
+                        <option value="">-</option>
                         fillRest = false;
                         notDone = false;
                     }
@@ -57,14 +50,22 @@
                     }
                     else
                     {
-                        <option value="">-</option>
+                        <option value=""> -</option>
                     }
+                    if (currentMinute == 00)
+                    {
+                        currentMinute = 30;
+                    }
+                    else
+                    {
+                        currentMinute = 00;
+                        currentHour++;
                     }
                 }
 
 
             }
-            @while (currentHour != 18 || currentMinute != 00)
+            @while (currentHour != 18)
             {
                 <option value="">-</option>
                 if (currentMinute == 00)

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace PlanningSystem.Models {
     public class Account {
@@ -22,5 +26,6 @@ namespace PlanningSystem.Models {
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
         public bool isDisabled { get; set; }
+        public IEnumerable<SelectListItem> AllUsers { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model PlanningSystem.Models.Schedule
+@{
+
+    ViewBag.Title = "ScheduleConfirmed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rooster opgeslagen</h2>
+
+<br />
+
+@using (Html.BeginForm("CreateSchedule", "Schedule"))
+{
+    <button type="submit" class="btn btn-primary">OK</button>
+
+}

@@ -197,8 +197,12 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Classroom.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\DaysOfTheWeek.cs" />
+    <Compile Include="Models\Months.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\SchoolWeekNumber.cs" />
+    <Compile Include="Models\SchoolYears.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Models\Unavailability.cs" />
     <Compile Include="Months.cs">
@@ -293,10 +297,10 @@
     <Content Include="Views\Unavailability\Formulier.cshtml" />
     <Content Include="Views\Unavailability\Respons.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Schedule\Schedule.cshtml" />
     <Content Include="Views\Unavailability\Inzien.cshtml" />
-    <Content Include="Views\Schedule\CreateClassroom.cshtml" />
+    <Content Include="Views\Schedule\CreateSchedule.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Schedule\ScheduleConfirmed.cshtml" />
     <Content Include="Views\Course\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -372,8 +372,21 @@
           <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="disable" Type="Boolean" Nullable="false" />
           <Property Name="hoursPerWeek" Type="Int32" Nullable="false" />
-          <Property Name="teacher" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Account" Relationship="PlanningSysteemModel.Course_Account" FromRole="Course" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="DaysOfTheWeek">
+          <Key>
+            <PropertyRef Name="Day" />
+          </Key>
+          <Property Name="Day" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_DaysOfTheWeek" FromRole="DaysOfTheWeek" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Months">
+          <Key>
+            <PropertyRef Name="Month" />
+          </Key>
+          <Property Name="Month" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Schedule" Relationship="PlanningSysteemModel.FK_Schedule_Months" FromRole="Months" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="DaysOfTheWeek">
           <Key>

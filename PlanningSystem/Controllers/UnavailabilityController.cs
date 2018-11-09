@@ -12,15 +12,15 @@ namespace PlanningSystem.Controllers {
             return View();
         }
 
-        public ViewResult Respons(DateTime date, string startTijdUur, string startTijdMinuten, string eindTijdUur,
-            string eindTijdMinuten, string reden) {
+        public ViewResult Respons(DateTime date, string startTimeHour, string startTimeMinutes, string endTimeHour,
+            string endTimeMinutes, string cause) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             Unavailability newUnavailability = new Unavailability();
-            newUnavailability.UnavailabilityCause = reden;
+            newUnavailability.UnavailabilityCause = cause;
             newUnavailability.UnavailabilityStartTime = new DateTime(date.Year, date.Month, date.Day,
-                Convert.ToInt16(startTijdUur), Convert.ToInt16(startTijdMinuten), 0);
+                Convert.ToInt16(startTimeHour), Convert.ToInt16(startTimeMinutes), 0);
             newUnavailability.UnavailabilityEndTime = new DateTime(date.Year, date.Month, date.Day,
-                Convert.ToInt16(eindTijdUur), Convert.ToInt16(eindTijdMinuten), 0);
+                Convert.ToInt16(endTimeHour), Convert.ToInt16(endTimeMinutes), 0);
             newUnavailability.userID = 3;
             context.Unavailability.Add(newUnavailability);
             Models.Unavailability addedUnavailability = new Models.Unavailability {
