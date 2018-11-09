@@ -11,6 +11,5 @@ namespace PlanningSystem.Models
     {
         [DisplayName("Maand")]
         public string Month { get; set; }
-        public IEnumerable<SelectListItem> AllMonths { get; set; }
     }
 }

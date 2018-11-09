@@ -26,6 +26,5 @@ namespace PlanningSystem.Models {
         public bool firstLogin { get; set; }
         public bool isResetted { get; set; }
         public bool isDisabled { get; set; }
-        public IEnumerable<SelectListItem> AllUsers { get; set; }
     }
 }

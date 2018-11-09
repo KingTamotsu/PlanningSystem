@@ -11,6 +11,5 @@ namespace PlanningSystem.Models
     {
         [DisplayName("Schooljaar")]
         public string SchoolYear { get; set; }
-        public IEnumerable<SelectListItem> AllYears { get; set; }
     }
 }

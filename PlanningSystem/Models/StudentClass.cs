@@ -8,6 +8,5 @@ namespace PlanningSystem.Models {
         public string ClassID { get; set; }
 
         public int NumberOfStudents { get; set; }
-        public IEnumerable<SelectListItem> AllClasses { get; set; }
     }
 }

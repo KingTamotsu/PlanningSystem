@@ -11,6 +11,5 @@ namespace PlanningSystem.Models
     {
         [DisplayName("WeekNr")]
         public int NumberOfTheWeek { get; set; }
-        public IEnumerable<SelectListItem> AllWeeks { get; set; }
     }
 }
