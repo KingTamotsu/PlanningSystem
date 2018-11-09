@@ -19,7 +19,7 @@ namespace PlanningSystem.Controllers {
                     courseCode = i.courseCode,
                     courseName = i.courseName,
                     description = i.description,
-                    teacher = i.teacher
+                    //teacher = i.teacher
                     
                 };
                 allCourses.Add(course);
