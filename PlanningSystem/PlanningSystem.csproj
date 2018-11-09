@@ -188,6 +188,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DaysOfTheWeek.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,11 +201,20 @@
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Models\Unavailability.cs" />
+    <Compile Include="Months.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Schedule.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolWeekNumber.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolYears.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentClass.cs">
@@ -211,6 +223,7 @@
     <Compile Include="Unavailability.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CourseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -279,16 +292,15 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Unavailability\Formulier.cshtml" />
     <Content Include="Views\Unavailability\Respons.cshtml" />
-    <Content Include="Views\Course\Disable.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Schedule\Schedule.cshtml" />
     <Content Include="Views\Unavailability\Inzien.cshtml" />
     <Content Include="Views\Schedule\CreateClassroom.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

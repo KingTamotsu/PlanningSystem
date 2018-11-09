@@ -15,19 +15,22 @@ namespace PlanningSystem
     public partial class Schedule
     {
         public int ID { get; set; }
+        public string SchoolYear { get; set; }
+        public string Month { get; set; }
+        public int SchoolWeekNumber { get; set; }
+        public string Day { get; set; }
         public string ClassID { get; set; }
-        public int courseId { get; set; }
-        public int userId { get; set; }
-        public int SchoolweekNumber { get; set; }
-        public string Schoolyear { get; set; }
-        public System.DateTime DayDate { get; set; }
-        public System.DateTime DateStartTime { get; set; }
-        public System.DateTime DateEndTime { get; set; }
+        public string Teacher { get; set; }
+        public string courseName { get; set; }
         public string ClassroomID { get; set; }
+        public Nullable<System.DateTime> DateStartTime { get; set; }
+        public Nullable<System.DateTime> DateEndTime { get; set; }
     
-        public virtual Account Account { get; set; }
         public virtual Classroom Classroom { get; set; }
-        public virtual Course Course { get; set; }
+        public virtual DaysOfTheWeek DaysOfTheWeek { get; set; }
+        public virtual Months Months { get; set; }
+        public virtual SchoolWeekNumber SchoolWeekNumber1 { get; set; }
+        public virtual SchoolYears SchoolYears { get; set; }
         public virtual StudentClass StudentClass { get; set; }
     }
 }

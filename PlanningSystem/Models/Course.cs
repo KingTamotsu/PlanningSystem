@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace PlanningSystem.Models {
     public class Course {
-        public int courseId;
+        public int courseId { get; set; }
 
         [DisplayName("Cursus Code")]
         public string courseCode { get; set; }
@@ -13,11 +14,12 @@ namespace PlanningSystem.Models {
 
         [DisplayName("Omschrijving")]
         public string description { get; set; }
-
-        [DisplayName("Colleges")]
-        public List<string> lectures { get; set; }
         [DisplayName("Docent")]
         public string teacher { get; set; }
+        public Account account { get; set; }
         public bool isDisabled { get; set; }
+
+        public SelectList teacherList { get; set; }
+        
     }
 }

@@ -11,14 +11,15 @@ namespace PlanningSystem.Controllers {
         public ActionResult Overview() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<Models.Course> allCourses = new List<Models.Course>();
-            List<Course> courses = context.Course.ToList();
-
+            List<Course> courses = context.Course.Where(a => a.disable == false).ToList();
+          
             foreach (Course i in courses) {
                 Models.Course course = new Models.Course {
                     courseId = i.courseId,
                     courseCode = i.courseCode,
                     courseName = i.courseName,
                     description = i.description,
+                    teacher = i.teacher
                     
                 };
                 allCourses.Add(course);
@@ -30,12 +31,24 @@ namespace PlanningSystem.Controllers {
         // GET: Course/Create
         [HttpGet]
         public ActionResult Create() {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+
+            List<Account> accounts = context.Account.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            //var teachers = context.Account.Select(c => new {text = c.name, Value = c.userId.ToString() }).ToList();
+            foreach (Account account in accounts)
+                items.Add(new SelectListItem()
+                {
+                    Text = account.name,
+                    Value = account.userId.ToString()
+                });
+            ViewData["ListItems"] = items;
             return View();
         }
 
         //POST: Course/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "courseId,courseCode,courseName,description")]
+        public ActionResult Create([Bind(Include = "courseId,courseCode,courseName,description,teacher")]
             Course course) {
             try {
                 PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -48,7 +61,7 @@ namespace PlanningSystem.Controllers {
             }
             catch (RetryLimitExceededException /* dex */) {
                 ModelState.AddModelError("",
-                    "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    "Kan de wijzigingen niet opslaan, probeer opnieuw.");
             }
 
             return RedirectToAction("Overview", "Course");
@@ -57,82 +70,66 @@ namespace PlanningSystem.Controllers {
 
         // GET: Course/Edit
         [HttpGet]
-        public ActionResult Edit(int? id) {
+        public ActionResult Edit(Models.Course course)
+        {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            Course course = context.Course.Find(id);
-            if (course == null) return HttpNotFound();
-            return RedirectToAction("Overview", "Course");
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<Account> accounts = context.Account.ToList();
+            foreach (Account account in accounts)
+                items.Add(new SelectListItem()
+                {
+                    Text = account.name,
+                    Value = account.userId.ToString()
+                });
+            ViewData["ListItems"] = items;
+            return View(course);
         }
 
 
         //POST: Course/Edit
         [HttpPost]
-        public ActionResult EditCourse(int? id) {
+        public ActionResult EditCourse(Models.Course course)
+        {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            Course courseToUpdate = context.Course.Find(id);
-            if (TryUpdateModel(courseToUpdate, "", new[] {"courseCode", "courseName", "description"}))
-                try {
-                    context.SaveChanges();
-                    return RedirectToAction("Overview", "Course");
-                }
-                catch (RetryLimitExceededException /* dex */) {
-                    ModelState.AddModelError("",
-                        "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-
+            Course courseDB = context.Course.Where(a => a.courseId == course.courseId).FirstOrDefault();
+            courseDB.courseCode = course.courseCode;
+            courseDB.courseName = course.courseName;
+            courseDB.description = course.description;
+            context.SaveChanges();
+                    
             return RedirectToAction("Overview", "Course");
         }
 
         // GET: Course
         [HttpGet]
-        public ActionResult disable() {
-            return View();
+        public ActionResult Delete(Models.Course course) {
+            return View(course);
         }
 
         [HttpPost]
         //POST: Course
-        public ActionResult DisableCourse(int courseId) {
-            PlanningSysteemEntities context = new PlanningSysteemEntities();
-
-            try {
-                Course course = context.Course.Find(courseId);
-                context.Course.Remove(course);
+        public ActionResult DisableCourse(Models.Course course){
+            if (course.courseId != null){
+                PlanningSysteemEntities context = new PlanningSysteemEntities();
+                Course courseDB = context.Course.Where(a => a.courseId == course.courseId).FirstOrDefault();
+                courseDB.disable = true;
                 context.SaveChanges();
+                return RedirectToAction("Overview", "Course");
             }
-            catch (DataException) {
-                return RedirectToAction("Disable", "Course");
-            }
-
-            return RedirectToAction("Disable", "Course");
+            return RedirectToAction("Overview", "Course");
         }
 
-        public ActionResult DisableCourse() {
-            return View();
-        }
-
-        //public ActionResult DisableCourse(Models.Course course)
-        //{
-        //    var context = new PlanningSysteemEntities();
-        //    if (context.Course.Any(c => c.courseId == course.courseId))
-        //    {
-        //        var disCourse = context.Course.Where(c => c.disable == false).FirstOrDefault();
-        //        disCourse.disable = true;
-        //    }
-
-        //    context.SaveChanges();
-        //    return RedirectToAction("Disable", "Course");
-
-        //public ActionResult LinkTeacher()
-        //{
-
-        //}
-
-        public ActionResult LinkTeacher()
+        public ActionResult LinkTeacher(Models.Course course)
         {
+            //var teacher = (from c in context.Course
+                //    join a in context.Account
+                //        on c.courseId equals a.userId
+                //    where a.name == "teacher"
+                //    select new
+                //    {
+                //        naam = a.name
+                //    }).ToList();
+
             return RedirectToAction("Overview", "Course");
         }
     }

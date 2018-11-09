@@ -39,8 +39,8 @@
                 <td>@i.teacher</td>
 
                 <td>
-                    @Html.ActionLink("Wijzigen", "Edit", "Course", new { id = i.courseId, @class = "btn btn-primary" })
-                    @Html.ActionLink("Verwijderen", "Disable", "Course", new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Wijzigen", "Edit", "Course", i, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Verwijderen", "Delete", "Course", i, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         </tbody>

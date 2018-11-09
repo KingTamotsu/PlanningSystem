@@ -41,7 +41,7 @@ namespace PlanningSystem.Controllers {
             }
         }
 
-        public ViewResult Inzien() {
+        public ViewResult Inzien(int week) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             DateTime startDay = new DateTime(2018, 9, 10, 9, 0, 0);
             DateTime monday = startDay.AddDays(7*(week-1));

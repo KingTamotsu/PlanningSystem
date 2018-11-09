@@ -1,0 +1,16 @@
+﻿@model PlanningSystem.Models.Course
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Weet je zeker dat je de onderwijseenheid @Model.courseName wilt verwijderen?</h2>
+
+@using (Html.BeginForm("DisableCourse", "Course", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.courseId)
+    </div>
+    <button type="submit" class="btn btn-danger">Verwijderen</button>
+}

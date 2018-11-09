@@ -12,23 +12,17 @@ namespace PlanningSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class SchoolYears
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Course()
+        public SchoolYears()
         {
-            this.Account = new HashSet<Account>();
+            this.Schedule = new HashSet<Schedule>();
         }
     
-        public int courseId { get; set; }
-        public string courseCode { get; set; }
-        public string courseName { get; set; }
-        public string description { get; set; }
-        public bool disable { get; set; }
-        public int hoursPerWeek { get; set; }
-        public string teacher { get; set; }
+        public string SchoolYear { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Account { get; set; }
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }
