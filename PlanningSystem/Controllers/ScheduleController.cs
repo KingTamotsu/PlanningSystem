@@ -6,7 +6,7 @@ namespace PlanningSystem.Controllers {
     public class ScheduleController : Controller {
 
         /// <summary>
-        ///     This method is for getting all the data needed to fill the drop down menu's to create schedules.
+        ///     These methods are for getting all the data needed to fill the drop down menu's to create schedules.
         /// </summary>
         /// <returns>View Page</returns>
         // GET: Schedule
