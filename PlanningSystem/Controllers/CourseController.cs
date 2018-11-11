@@ -19,7 +19,8 @@ namespace PlanningSystem.Controllers {
                     courseCode = i.courseCode,
                     courseName = i.courseName,
                     description = i.description,
-                    //teacher = i.teacher
+                    hoursPerWeek = i.hoursPerWeek,
+                    teacher = i.teacher
                     
                 };
                 allCourses.Add(course);
@@ -48,7 +49,7 @@ namespace PlanningSystem.Controllers {
 
         //POST: Course/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "courseId,courseCode,courseName,description,teacher")]
+        public ActionResult Create([Bind(Include = "courseId,courseCode,courseName,description,hoursPerWeek,teacher")]
             Course course) {
             try {
                 PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -95,6 +96,8 @@ namespace PlanningSystem.Controllers {
             courseDB.courseCode = course.courseCode;
             courseDB.courseName = course.courseName;
             courseDB.description = course.description;
+            courseDB.hoursPerWeek = course.hoursPerWeek;
+            courseDB.teacher = course.teacher;
             context.SaveChanges();
                     
             return RedirectToAction("Overview", "Course");
@@ -119,18 +122,18 @@ namespace PlanningSystem.Controllers {
             return RedirectToAction("Overview", "Course");
         }
 
-        public ActionResult LinkTeacher(Models.Course course)
-        {
-            //var teacher = (from c in context.Course
-                //    join a in context.Account
-                //        on c.courseId equals a.userId
-                //    where a.name == "teacher"
-                //    select new
-                //    {
-                //        naam = a.name
-                //    }).ToList();
+        //public ActionResult LinkTeacher(Models.Course course)
+        //{
+        //    //var teacher = (from c in context.Course
+        //        //    join a in context.Account
+        //        //        on c.courseId equals a.userId
+        //        //    where a.name == "teacher"
+        //        //    select new
+        //        //    {
+        //        //        naam = a.name
+        //        //    }).ToList();
 
-            return RedirectToAction("Overview", "Course");
-        }
+        //    return RedirectToAction("Overview", "Course");
+        //}
     }
 }

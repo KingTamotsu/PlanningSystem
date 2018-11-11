@@ -11,6 +11,6 @@ namespace PlanningSystem.Models
     {
         [DisplayName("Dag")]
         public string Day { get; set; }
-        public IEnumerable<SelectListItem> AllDays { get; set; }
+        //public IEnumerable<SelectListItem> AllDays { get; set; }
     }
 }

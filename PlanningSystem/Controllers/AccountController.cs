@@ -175,7 +175,7 @@ namespace PlanningSystem.Controllers {
             }
 
             newPassword = "Deze gebruiker bestaat niet";
-            return RedirectToAction("Reset", "Account");
+            return RedirectToAction("resettedpassword", "Account", new { password = newPassword });
         }
 
         /// <summary>

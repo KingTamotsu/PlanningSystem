@@ -4,11 +4,13 @@ using System.Web.Mvc;
 
 namespace PlanningSystem.Controllers {
     public class ScheduleController : Controller {
+
+        /// <summary>
+        ///     These methods are for getting all the data needed to fill the drop down menu's to create schedules.
+        /// </summary>
+        /// <returns>View Page</returns>
         // GET: Schedule
-
         public ActionResult CreateSchedule() {
-
-
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             List<StudentClass> AllClasses = context.StudentClass.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
@@ -84,19 +86,27 @@ namespace PlanningSystem.Controllers {
             foreach (Classroom classrooms in AllClassrooms)
                 items8.Add(new SelectListItem
                 {
-                    Text = classrooms.ClassroomID.ToString(),
-                    Value = classrooms.ClassroomID.ToString()
+                    Text = classrooms.ClassroomID,
+                    Value = classrooms.ClassroomID
                 });
             ViewData["ListItemsClassrooms"] = items8;
 
             return View();
-
         }
+
+        /// <summary>
+        ///     This method opens the view page.
+        /// </summary>
+        /// <returns>View Page</returns>
         public ActionResult ScheduleConfirmed()
         {
             return View();
         }
 
+        /// <summary>
+        ///     This method is for creating a single schedule.
+        /// </summary>
+        /// <returns>Redirect to schedule confirmed page of schedule</returns>
         [HttpPost]
         // POST: Account/Create
         public ActionResult CreateScheduleClassroom(Models.Schedule sched) {
@@ -114,7 +124,6 @@ namespace PlanningSystem.Controllers {
             context.Schedule.Add(newSchedule);
             context.SaveChanges();
             return RedirectToAction("ScheduleConfirmed", "Schedule");
-
         }
     }
 }

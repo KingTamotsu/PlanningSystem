@@ -10,6 +10,5 @@ namespace PlanningSystem.Models
 	public class Classroom
 	{
         public string ClassroomID { get; set; }
-        public IEnumerable<SelectListItem> AllClassrooms { get; set; }
     }
 }
