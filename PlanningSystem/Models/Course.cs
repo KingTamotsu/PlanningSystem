@@ -17,6 +17,8 @@ namespace PlanningSystem.Models {
 
         [DisplayName("Omschrijving")]
         public string description { get; set; }
+        [DisplayName("Uren per week")]
+        public int hoursPerWeek { get; set; }
         [DisplayName("Docent")]
         public string teacher { get; set; }
         public Account account { get; set; }
