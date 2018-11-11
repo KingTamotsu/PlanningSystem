@@ -6,11 +6,16 @@ namespace PlanningSystem.Controllers {
     public class LoginController : Controller {
         private const string key = "qaz123!@@)(*";
 
-        // GET: Login
+
         public ActionResult Login() {
             return View();
         }
 
+        /// <summary>
+        /// This method gets checks the database if the account exists and forwards the result to the view.
+        /// </summary>
+        /// <param name="account">Account object</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(Account account) {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -34,6 +39,10 @@ namespace PlanningSystem.Controllers {
             return View();
         }
 
+        /// <summary>
+        /// This method checks in the google authenticator app of the code is valid.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Verify2FA() {
             string token = Request["passcode"];
