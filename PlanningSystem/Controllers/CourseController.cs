@@ -7,6 +7,13 @@ using System.Web.Mvc;
 
 namespace PlanningSystem.Controllers {
     public class CourseController : Controller {
+
+        #region ViewPages
+
+        /// <summary>
+        ///     This method gets all courses in the database and forwards it to the view.
+        /// </summary>
+        /// <returns>View Page</returns>
         // GET: Course
         public ActionResult Overview() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
@@ -21,7 +28,7 @@ namespace PlanningSystem.Controllers {
                     description = i.description,
                     hoursPerWeek = i.hoursPerWeek,
                     teacher = i.teacher
-                    
+                
                 };
                 allCourses.Add(course);
             }
@@ -29,6 +36,11 @@ namespace PlanningSystem.Controllers {
             return View(allCourses);
         }
 
+        /// <summary>
+        ///     This method opens the view page to add a course.
+        /// </summary>
+        /// <returns>View Page</returns>
+        /// 
         // GET: Course/Create
         [HttpGet]
         public ActionResult Create() {
@@ -41,11 +53,55 @@ namespace PlanningSystem.Controllers {
                 items.Add(new SelectListItem()
                 {
                     Text = account.name,
-                    Value = account.userId.ToString()
-                });
+                    Value = account.name,
+                    
+        });
             ViewData["ListItems"] = items;
             return View();
         }
+
+        /// <summary>
+        ///     This method gets all courses from database and forwards it to the view.
+        /// </summary>
+        /// <param name="courses">Course object</param>
+        /// <returns></returns>
+        // GET: Course/Edit
+        [HttpGet]
+        public ActionResult Edit(Models.Course course)
+        {
+            PlanningSysteemEntities context = new PlanningSysteemEntities();
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<Account> accounts = context.Account.ToList();
+            foreach (Account account in accounts)
+                items.Add(new SelectListItem()
+                {
+                    Text = account.name,
+                    Value = account.name,
+                });
+            ViewData["ListItems"] = items;
+            return View(course);
+        }
+
+        /// <summary>
+        ///     This method opens the view page.
+        /// </summary>
+        /// <returns>View Page</returns>
+        // GET: Course
+        [HttpGet]
+        public ActionResult Delete(Models.Course course)
+        {
+            return View(course);
+        }
+
+        #endregion
+
+        #region ActionResults
+
+        /// <summary>
+        ///     This method creates an course.
+        /// </summary>
+        /// <param name="course">Course object</param>
+        /// <returns>Redirect to Overview page of course.</returns>
 
         //POST: Course/Create
         [HttpPost]
@@ -68,24 +124,11 @@ namespace PlanningSystem.Controllers {
             return RedirectToAction("Overview", "Course");
         }
 
-
-        // GET: Course/Edit
-        [HttpGet]
-        public ActionResult Edit(Models.Course course)
-        {
-            PlanningSysteemEntities context = new PlanningSysteemEntities();
-            List<SelectListItem> items = new List<SelectListItem>();
-            List<Account> accounts = context.Account.ToList();
-            foreach (Account account in accounts)
-                items.Add(new SelectListItem()
-                {
-                    Text = account.name,
-                    Value = account.userId.ToString()
-                });
-            ViewData["ListItems"] = items;
-            return View(course);
-        }
-
+        /// <summary>
+        ///     This method edits an course.
+        /// </summary>
+        /// <param name="course">Course object</param>
+        /// <returns>Redirect to Overview page of course.</returns>
 
         //POST: Course/Edit
         [HttpPost]
@@ -97,22 +140,22 @@ namespace PlanningSystem.Controllers {
             courseDB.courseName = course.courseName;
             courseDB.description = course.description;
             courseDB.hoursPerWeek = course.hoursPerWeek;
-            courseDB.teacher = course.teacher;
+            courseDB.teacher = Request.Form["teacher"];
             context.SaveChanges();
                     
             return RedirectToAction("Overview", "Course");
         }
-
-        // GET: Course
-        [HttpGet]
-        public ActionResult Delete(Models.Course course) {
-            return View(course);
-        }
-
+        /// <summary>
+        ///     THis method is to disable(soft delete) an course.
+        /// </summary>
+        /// <param name="course">Course object</param>
+        /// <returns>Redirect to Overview Page</returns>
         [HttpPost]
         //POST: Course
-        public ActionResult DisableCourse(Models.Course course){
-            if (course.courseId != null){
+        public ActionResult DisableCourse(Models.Course course)
+        {
+            if (course.courseId != null)
+            {
                 PlanningSysteemEntities context = new PlanningSysteemEntities();
                 Course courseDB = context.Course.Where(a => a.courseId == course.courseId).FirstOrDefault();
                 courseDB.disable = true;
@@ -121,19 +164,6 @@ namespace PlanningSystem.Controllers {
             }
             return RedirectToAction("Overview", "Course");
         }
-
-        //public ActionResult LinkTeacher(Models.Course course)
-        //{
-        //    //var teacher = (from c in context.Course
-        //        //    join a in context.Account
-        //        //        on c.courseId equals a.userId
-        //        //    where a.name == "teacher"
-        //        //    select new
-        //        //    {
-        //        //        naam = a.name
-        //        //    }).ToList();
-
-        //    return RedirectToAction("Overview", "Course");
-        //}
+        #endregion
     }
 }
