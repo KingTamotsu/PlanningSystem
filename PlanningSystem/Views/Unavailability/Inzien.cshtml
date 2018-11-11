@@ -2,56 +2,82 @@
 
 
 @{
+    /**/
+
     ViewBag.Title = "Inzien";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Inzien</h2>
-
-@foreach (var weekday in Model)
+@using (Html.BeginForm("Inzien", "Unavailability"))
 {
-    if (!weekday.Any())
-    {
-        <select name="selectie" size="18" disabled>
-            @for (int i = 0; i < 18; i++)
-            {
-                <option value="">-</option>
-            }
+    <div class="form-group">
+        @Html.Label("currentWeek", (string)ViewData["currentWeek"])
+        <br>
+        @Html.Label("currentUser", (string)ViewData["currentUser"])
+    </div>
+}
 
-        </select>
-    }
-    else
+    @foreach (var weekday in Model)
     {
-        int currentHour = 9;
-        int currentMinute = 00;
-
-        <select name="selectie" size="18">
-            @foreach (var u in weekday)
-            {
-                bool notDone = true;
-                bool fillRest = false;
-                while (notDone && currentHour != 18)
+        if (!weekday.Any())
+        {
+            <select name="selectie" size="18" disabled>
+                @for (int i = 0; i < 18; i++)
                 {
+                    <option value="">-</option>
+                }
 
-                    if (currentHour == u.UnavailabilityStartTime.Hour && currentMinute == u.UnavailabilityStartTime.Minute)
+            </select>
+        }
+        else
+        {
+            int currentHour = 9;
+            int currentMinute = 00;
+
+            <select name="selectie" size="18">
+                @foreach (var u in weekday)
+                {
+                    bool notDone = true;
+                    bool fillRest = false;
+                    while (notDone && currentHour != 18)
                     {
-                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
-                        fillRest = true;
+
+                        if (currentHour == u.UnavailabilityStartTime.Hour && currentMinute == u.UnavailabilityStartTime.Minute)
+                        {
+                            <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
+                            fillRest = true;
+                        }
+                        else if (currentHour == u.UnavailabilityEndTime.Hour && currentMinute == u.UnavailabilityEndTime.Minute)
+                        {
+                            <option value="">-</option>
+                            fillRest = false;
+                            notDone = false;
+                        }
+                        else if (fillRest)
+                        {
+                            <option value=@u.UnavailabilityID>-</option>
+                        }
+                        else
+                        {
+                            <option value=""> -</option>
+                        }
+                        if (currentMinute == 00)
+                        {
+                            currentMinute = 30;
+                        }
+                        else
+                        {
+                            currentMinute = 00;
+                            currentHour++;
+                        }
                     }
-                    else if (currentHour == u.UnavailabilityEndTime.Hour && currentMinute == u.UnavailabilityEndTime.Minute)
-                    {
-                        <option value="">-</option>
-                        fillRest = false;
-                        notDone = false;
-                    }
-                    else if (fillRest)
-                    {
-                        <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
-                    }
-                    else
-                    {
-                        <option value=""> -</option>
-                    }
+
+
+                }
+                @while (currentHour != 18)
+                {
+                    <option value="">-</option>
                     if (currentMinute == 00)
                     {
                         currentMinute = 30;
@@ -62,38 +88,28 @@
                         currentHour++;
                     }
                 }
-
-
-            }
-            @while (currentHour != 18)
-            {
-                <option value="">-</option>
-                if (currentMinute == 00)
-                {
-                    currentMinute = 30;
-                }
-                else
-                {
-                    currentMinute = 00;
-                    currentHour++;
-                }
-            }
-        </select>
+            </select>
+        }
     }
-}
-<br>
+    <br>
 
-<form action="Inzien" method="post">
-    <select name="week" onchange="this.form.submit()">
-        <option value="1">Week 1</option>
-        <option value="2">Week 2</option>
-        <option value="3">Week 3</option>
-        <option value="4">Week 4</option>
-        <option value="5">Week 5</option>
-        <option value="6">Week 6</option>
-        <option value="7">Week 7</option>
-        <option value="8">Week 8</option>
-        <option value="9">Week 9</option>
-        <option value="10">Week 10</option>
-    </select>
-</form>
+    
+        @using (Html.BeginForm("Inzien", "Unavailability"))
+        {
+        
+            <div class="form-group">
+                @Html.DropDownList("Teachers", (IEnumerable<SelectListItem>)ViewData["ListItemsTeachers"])
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("Week", (IEnumerable<SelectListItem>)ViewData["ListItemsWeek"])
+            </div>
+            <button type="submit" class="btn btn-primary">Laden</button>
+        }
+    </form>
+    <br>
+    <form action="" method="">
+        <input type="submit" value="Wijzigen" />
+    </form>
+    <form action="" method="">
+        <input type="submit" value="Verwijderen" />
+    </form>

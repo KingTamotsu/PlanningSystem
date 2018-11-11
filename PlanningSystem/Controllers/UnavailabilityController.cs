@@ -41,11 +41,30 @@ namespace PlanningSystem.Controllers {
             }
         }
 
-        public ViewResult Inzien(int week=1) {
+        public ViewResult Inzien() {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             DateTime startDay = new DateTime(2018, 9, 10, 9, 0, 0);
-            DateTime monday = startDay.AddDays(7*(week-1));
+            int currentUserId;
+            string currentUserName;
+            int week;
+            if (Request.Form["Teachers"] == null)
+            {
+                currentUserId = 2;
+            }
+            else
+            {
+                currentUserId = Int32.Parse(Request.Form["Teachers"]);
+            }
+            if (Request.Form["Week"] == null)
+            {
+                week = 1;
+            }
+            else
+            {
+                week = Int32.Parse(Request.Form["Week"]);
+            }
 
+            DateTime monday = startDay.AddDays(7*(week-1));
             List<List<Models.Unavailability>> totalList = new List<List<Models.Unavailability>>();
             List<Models.Unavailability> mondayUnavailabilities = new List<Models.Unavailability>();
             totalList.Add(mondayUnavailabilities);
@@ -64,7 +83,7 @@ namespace PlanningSystem.Controllers {
                         a.UnavailabilityStartTime.Day == dayoftheweek.Day &&
                         a.UnavailabilityStartTime.Month == dayoftheweek.Month &&
                         a.UnavailabilityStartTime.Year == dayoftheweek.Year &&
-                        a.userID == 3)
+                        a.userID == currentUserId)
                     .ToList();
                 foreach (Unavailability u in tempList) {
                     Models.Unavailability unavailability = new Models.Unavailability {
@@ -72,15 +91,36 @@ namespace PlanningSystem.Controllers {
                         UnavailabilityStartTime = u.UnavailabilityStartTime,
                         UnavailabilityEndTime = u.UnavailabilityEndTime,
                         UnavailabilityID = u.UnavailabilityID,
-                        userID = 3
+                        userID = u.userID,
                     };
                     subday.Add(unavailability);
                 }
-
                 i++;
                 subday.Sort((a, b) => a.UnavailabilityStartTime.CompareTo(b.UnavailabilityStartTime));
             }
-
+            List<Account> AllUsers = context.Account.ToList();
+            List<SelectListItem> teacherItems = new List<SelectListItem>();
+            foreach (Account users in AllUsers)
+                teacherItems.Add(new SelectListItem
+                {
+                    Text = users.name,
+                    Value = users.userId.ToString(),
+                    Selected = users.userId == currentUserId ? true : false,
+                });
+            List<SelectListItem> weekItems = new List<SelectListItem>();
+            for (int j = 1; j < 11; j++)
+            {
+                weekItems.Add(new SelectListItem
+                {
+                    Text = "Week: " + j,
+                    Value = j.ToString(),
+                    Selected = j == week ? true : false
+                });
+            }
+            ViewData["ListItemsTeachers"] = teacherItems;
+            ViewData["ListItemsWeek"] = weekItems;
+            ViewData["currentWeek"] = "Week: " + week.ToString();
+            ViewData["currentUser"] = "Beschikbaarheid van: " + currentUserId;
             return View(totalList);
         }
     }
