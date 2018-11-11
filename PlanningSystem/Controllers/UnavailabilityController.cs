@@ -45,11 +45,11 @@ namespace PlanningSystem.Controllers {
             PlanningSysteemEntities context = new PlanningSysteemEntities();
             DateTime startDay = new DateTime(2018, 9, 10, 9, 0, 0);
             int currentUserId;
-            string currentUserName;
+            string currentUserName = "startwaarde";
             int week;
             if (Request.Form["Teachers"] == null)
             {
-                currentUserId = 2;
+                currentUserId = 3;
             }
             else
             {
@@ -101,12 +101,23 @@ namespace PlanningSystem.Controllers {
             List<Account> AllUsers = context.Account.ToList();
             List<SelectListItem> teacherItems = new List<SelectListItem>();
             foreach (Account users in AllUsers)
+            {
                 teacherItems.Add(new SelectListItem
                 {
                     Text = users.name,
                     Value = users.userId.ToString(),
                     Selected = users.userId == currentUserId ? true : false,
                 });
+            }
+            foreach (SelectListItem item in teacherItems)
+            {
+                if (item.Value == currentUserId.ToString())
+                {
+                    currentUserName = item.Text;
+                }
+
+                
+            }
             List<SelectListItem> weekItems = new List<SelectListItem>();
             for (int j = 1; j < 11; j++)
             {
@@ -120,7 +131,7 @@ namespace PlanningSystem.Controllers {
             ViewData["ListItemsTeachers"] = teacherItems;
             ViewData["ListItemsWeek"] = weekItems;
             ViewData["currentWeek"] = "Week: " + week.ToString();
-            ViewData["currentUser"] = "Beschikbaarheid van: " + currentUserId;
+            ViewData["currentUser"] = "Beschikbaarheid van: " + currentUserName;
             return View(totalList);
         }
     }

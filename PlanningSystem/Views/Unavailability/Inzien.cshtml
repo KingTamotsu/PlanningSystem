@@ -56,7 +56,7 @@
                         }
                         else if (fillRest)
                         {
-                            <option value=@u.UnavailabilityID>-</option>
+                            <option value=@u.UnavailabilityID>@u.UnavailabilityCause</option>
                         }
                         else
                         {
@@ -92,8 +92,6 @@
         }
     }
     <br>
-
-    
         @using (Html.BeginForm("Inzien", "Unavailability"))
         {
         
@@ -105,11 +103,5 @@
             </div>
             <button type="submit" class="btn btn-primary">Laden</button>
         }
-    </form>
+    
     <br>
-    <form action="" method="">
-        <input type="submit" value="Wijzigen" />
-    </form>
-    <form action="" method="">
-        <input type="submit" value="Verwijderen" />
-    </form>
