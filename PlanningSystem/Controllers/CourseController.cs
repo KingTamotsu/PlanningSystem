@@ -21,7 +21,7 @@ namespace PlanningSystem.Controllers {
                     description = i.description,
                     hoursPerWeek = i.hoursPerWeek,
                     teacher = i.teacher
-                    
+                
                 };
                 allCourses.Add(course);
             }
@@ -97,7 +97,7 @@ namespace PlanningSystem.Controllers {
             courseDB.courseName = course.courseName;
             courseDB.description = course.description;
             courseDB.hoursPerWeek = course.hoursPerWeek;
-            courseDB.teacher = course.teacher;
+            courseDB.teacher = Request.Form["Account"];
             context.SaveChanges();
                     
             return RedirectToAction("Overview", "Course");

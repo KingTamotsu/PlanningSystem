@@ -23,8 +23,5 @@ namespace PlanningSystem.Models {
         public string teacher { get; set; }
         public Account account { get; set; }
         public bool isDisabled { get; set; }
-
-        public SelectList teacherList { get; set; }
-        
     }
 }
