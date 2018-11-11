@@ -45,7 +45,7 @@ namespace PlanningSystem.Controllers {
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
